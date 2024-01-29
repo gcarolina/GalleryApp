@@ -56,13 +56,13 @@
 		F177A2262B66DF7100FA5BC4 /* GalleryApp */ = {
 			isa = PBXGroup;
 			children = (
-				F177A2272B66DF7100FA5BC4 /* AppDelegate.swift */,
-				F177A2292B66DF7100FA5BC4 /* SceneDelegate.swift */,
 				F177A22B2B66DF7100FA5BC4 /* ViewController.swift */,
 				F177A22D2B66DF7100FA5BC4 /* Main.storyboard */,
+				F177A2272B66DF7100FA5BC4 /* AppDelegate.swift */,
+				F177A2292B66DF7100FA5BC4 /* SceneDelegate.swift */,
+				F177A2352B66DF7900FA5BC4 /* Info.plist */,
 				F177A2302B66DF7900FA5BC4 /* Assets.xcassets */,
 				F177A2322B66DF7900FA5BC4 /* LaunchScreen.storyboard */,
-				F177A2352B66DF7900FA5BC4 /* Info.plist */,
 			);
 			path = GalleryApp;
 			sourceTree = "<group>";
