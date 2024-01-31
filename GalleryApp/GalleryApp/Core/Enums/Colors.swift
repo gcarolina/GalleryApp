@@ -8,4 +8,5 @@ enum Colors {
     static let brightOrange = UIColor(named: "brightOrange") ?? .orange
     static let teal = UIColor(named: "teal") ?? .systemBlue
     static let royalPurple = UIColor(named: "royalPurple") ?? .systemPurple
+    static let redWine = UIColor(named: "redWine") ?? .systemRed
 }

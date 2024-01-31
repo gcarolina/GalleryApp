@@ -14,6 +14,7 @@
 		F177A23E2B69201E00FA5BC4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A23D2B69201E00FA5BC4 /* Colors.swift */; };
 		F177A2422B6937FC00FA5BC4 /* CustomGradientStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A2412B6937FC00FA5BC4 /* CustomGradientStyle.swift */; };
 		F177A2452B69388300FA5BC4 /* CAGradientLayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A2442B69388300FA5BC4 /* CAGradientLayerExtension.swift */; };
+		F177A2472B698ED800FA5BC4 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A2462B698ED800FA5BC4 /* GalleryCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		F177A23D2B69201E00FA5BC4 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		F177A2412B6937FC00FA5BC4 /* CustomGradientStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGradientStyle.swift; sourceTree = "<group>"; };
 		F177A2442B69388300FA5BC4 /* CAGradientLayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAGradientLayerExtension.swift; sourceTree = "<group>"; };
+		F177A2462B698ED800FA5BC4 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				F177A22B2B66DF7100FA5BC4 /* GalleryViewController.swift */,
+				F177A2462B698ED800FA5BC4 /* GalleryCollectionViewCell.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F177A22C2B66DF7100FA5BC4 /* GalleryViewController.swift in Sources */,
+				F177A2472B698ED800FA5BC4 /* GalleryCollectionViewCell.swift in Sources */,
 				F177A23E2B69201E00FA5BC4 /* Colors.swift in Sources */,
 				F177A2452B69388300FA5BC4 /* CAGradientLayerExtension.swift in Sources */,
 				F177A2422B6937FC00FA5BC4 /* CustomGradientStyle.swift in Sources */,

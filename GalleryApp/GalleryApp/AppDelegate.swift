@@ -6,8 +6,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        UINavigationBar.appearance().barTintColor = Colors.teal
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : Colors.brightOrange]
+        UINavigationBar.appearance().barTintColor = Colors.paleGrey
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : Colors.royalPurple]
         
         window = UIWindow(frame: UIScreen.main.bounds)
         let navigationController = UINavigationController()
