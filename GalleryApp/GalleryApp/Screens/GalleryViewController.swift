@@ -6,12 +6,28 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
         static let galleryCollectionViewCell = "GalleryCollectionViewCell"
     }
     
+    private var photos: [UnsplashPhoto] = []
+    
     private var collectionView: UICollectionView?
     private var collectionViewFlowLayout: UICollectionViewFlowLayout?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        fetchPhotos()
+    }
+    
+    private func fetchPhotos() {
+        NetworkManager.getPhotos { [weak self] (fetchedPhotos) in
+            guard let self = self else { return }
+            
+            if let fetchedPhotos = fetchedPhotos {
+                self.photos.append(contentsOf: fetchedPhotos)
+                self.collectionView?.reloadData()
+            } else {
+                print("Error fetching photos")
+            }
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -25,7 +41,7 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
         if let gradientLayer = view.layer.sublayers?.first as? CAGradientLayer {
             gradientLayer.frame = view.bounds
         } else {
-            let gradientLayer = CAGradientLayer.gradientLayer(for: .greyToPurple, in: view.bounds)
+            let gradientLayer = CAGradientLayer.gradientLayer(for: .greyToTeal, in: view.bounds)
             view.layer.insertSublayer(gradientLayer, at: 0)
         }
         configureCollectionViewLayout()
@@ -57,8 +73,8 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
             collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10)
         ])
@@ -67,7 +83,7 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
     private func configureCollectionViewLayout() {
         guard let collectionView = collectionView, let layout = collectionViewFlowLayout else { return }
         
-        let itemSpacing: CGFloat = 5
+        let itemSpacing: CGFloat = 2
         
         if traitCollection.verticalSizeClass == .compact {
             let numberOfItemsInRow: CGFloat = 4
@@ -84,14 +100,14 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        Photos.allCases.count
+        photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.galleryCollectionViewCell, for: indexPath) as? GalleryCollectionViewCell else {
             fatalError("The registered type for the cell does not match the casting")
         }
-        cell.option = Photos.allCases[indexPath.row]
+        cell.option = photos[indexPath.item].urls
         return cell
     }
 }

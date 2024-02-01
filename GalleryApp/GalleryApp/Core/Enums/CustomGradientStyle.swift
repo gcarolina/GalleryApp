@@ -5,6 +5,6 @@ import Foundation
  */
 enum CustomGradientStyle {
     case orangeToPurple
-    case greyToPurple
+    case greyToTeal
     case greyToOrange
 }

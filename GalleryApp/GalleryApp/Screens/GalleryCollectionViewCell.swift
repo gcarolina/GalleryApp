@@ -1,18 +1,11 @@
 import UIKit
 
-enum Photos: String, CaseIterable {
-    case logo
-    case photo1
-    case photo2
-    case photo3
-    case photo4
-}
-
 final class GalleryCollectionViewCell: UICollectionViewCell {
     
     private let image: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -30,10 +23,10 @@ final class GalleryCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-    var option: Photos? {
+    var option: URLS? {
         didSet {
             guard let option = option else { return }
-            image.image = UIImage(named: option.rawValue)
+            loadImage(from: option.thumb)
         }
     }
     
@@ -54,12 +47,12 @@ final class GalleryCollectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             image.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            image.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            image.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             image.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
             
             likedButton.bottomAnchor.constraint(equalTo: image.bottomAnchor, constant: -5),
-            likedButton.trailingAnchor.constraint(equalTo: image.trailingAnchor, constant: -5),
+            likedButton.trailingAnchor.constraint(equalTo: image.trailingAnchor, constant: -10),
             likedButton.widthAnchor.constraint(equalToConstant: 25),
             likedButton.heightAnchor.constraint(equalToConstant: 25)
         ])
@@ -70,10 +63,22 @@ final class GalleryCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupShadow(for view: UIView) {
-        view.layer.shadowColor = Colors.royalPurple.cgColor
+        view.layer.shadowColor = Colors.teal.cgColor
         view.layer.shadowOffset = CGSize(width: 0, height: 4)
         view.layer.shadowOpacity = 1
-        view.layer.shadowRadius = 7
+        view.layer.shadowRadius = 12
         view.layer.masksToBounds = false
+    }
+    
+    private func loadImage(from urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        
+        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            guard let data = data, error == nil else { return }
+            
+            DispatchQueue.main.async {
+                self?.image.image = UIImage(data: data)
+            }
+        }.resume()
     }
 }

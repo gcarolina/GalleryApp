@@ -16,9 +16,9 @@ extension CAGradientLayer {
         case .orangeToPurple:
             beginColor = Colors.brightOrange
             endColor = Colors.royalPurple
-        case .greyToPurple:
+        case .greyToTeal:
             beginColor = Colors.paleGrey
-            endColor = Colors.royalPurple
+            endColor = Colors.teal
         case .greyToOrange:
             beginColor = Colors.paleGrey
             endColor = Colors.brightOrange
