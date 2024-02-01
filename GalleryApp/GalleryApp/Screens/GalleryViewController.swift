@@ -110,4 +110,13 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
         cell.option = photos[indexPath.item].urls
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let lastSection = collectionView.numberOfSections - 1
+        let lastItemInSection = collectionView.numberOfItems(inSection: lastSection) - 1
+        
+        if indexPath.section == lastSection && indexPath.item == lastItemInSection {
+            fetchPhotos()
+        }
+    }
 }

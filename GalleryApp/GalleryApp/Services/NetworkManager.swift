@@ -27,7 +27,7 @@ final class NetworkManager {
             }
             let results = decodeJSON(type: [UnsplashPhoto].self, from: data)
             completion(results)
-            page += 1
+            self.page += 1
         }
     }
     
