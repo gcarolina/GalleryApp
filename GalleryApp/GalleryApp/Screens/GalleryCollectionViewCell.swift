@@ -40,6 +40,11 @@ final class GalleryCollectionViewCell: UICollectionViewCell {
         configureUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        image.image = nil
+    }
+    
     private func configureUI() {
         likedButton.setBackgroundImage(likedImage, for: .normal)
         addSubview(image)
