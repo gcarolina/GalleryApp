@@ -3,7 +3,7 @@ import UIKit
 final class GalleryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     private enum Constants {
         static let navigationItemTitle = "Eloquence Art Gallery"
-        static let galleryCollectionViewCell = "GalleryCollectionViewCell"
+        static let galleryCell = "GalleryCell"
     }
     
     private var photos: [UnsplashPhoto] = []
@@ -68,7 +68,7 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: Constants.galleryCollectionViewCell)
+        collectionView.register(GalleryCell.self, forCellWithReuseIdentifier: Constants.galleryCell)
         collectionView.backgroundColor = .clear
         view.addSubview(collectionView)
         
@@ -104,10 +104,10 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.galleryCollectionViewCell, for: indexPath) as? GalleryCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.galleryCell, for: indexPath) as? GalleryCell else {
             fatalError("The registered type for the cell does not match the casting")
         }
-        cell.option = photos[indexPath.item].urls
+        cell.option = photos[indexPath.item]
         return cell
     }
     

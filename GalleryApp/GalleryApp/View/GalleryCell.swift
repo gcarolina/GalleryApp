@@ -1,6 +1,8 @@
 import UIKit
+import SkeletonView
 
-final class GalleryCollectionViewCell: UICollectionViewCell {
+final class GalleryCell: UICollectionViewCell {
+    private var animationPlayed = false
     
     private let image: UIImageView = {
         let imageView = UIImageView()
@@ -9,10 +11,9 @@ final class GalleryCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    var likedImage: UIImage? {
-        let image = UIImage(systemName: "heart.fill")
-        return image
-    }
+    lazy var likedImage: UIImage? = {
+        UIImage(systemName: "heart.fill")
+    }()
     
     private let likedButton: UIButton = {
         let button = UIButton()
@@ -23,10 +24,10 @@ final class GalleryCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-    var option: URLS? {
+    var option: UnsplashPhoto? {
         didSet {
             guard let option = option else { return }
-            loadImage(from: option.thumb)
+            loadImage(from: option.urls.thumb)
         }
     }
     
@@ -40,8 +41,17 @@ final class GalleryCollectionViewCell: UICollectionViewCell {
         configureUI()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if !animationPlayed {
+            setUpAnimation()
+            animationPlayed = true
+        }
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
+        image.hideSkeleton()
         image.image = nil
     }
     
@@ -75,14 +85,28 @@ final class GalleryCollectionViewCell: UICollectionViewCell {
         view.layer.masksToBounds = false
     }
     
+    private func setUpAnimation() {
+        image.isSkeletonable = true
+        let gradient = SkeletonGradient(baseColor: Colors.paleGrey)
+        let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .topLeftBottomRight, duration: 1.5)
+        image.showAnimatedGradientSkeleton(usingGradient: gradient, animation: animation, transition: .crossDissolve(0.25))
+    }
+    
+    private func hideSkeleton() {
+        image.hideSkeleton(transition: .crossDissolve(0.25))
+    }
+    
     private func loadImage(from urlString: String) {
         guard let url = URL(string: urlString) else { return }
-        
-        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-            guard let data = data, error == nil else { return }
-            
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                return
+            }
+
             DispatchQueue.main.async {
-                self?.image.image = UIImage(data: data)
+                self.hideSkeleton()
+                self.image.image = UIImage(data: data)
             }
         }.resume()
     }
