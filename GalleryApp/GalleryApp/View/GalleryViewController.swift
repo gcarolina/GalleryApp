@@ -6,10 +6,20 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
         static let galleryCell = "GalleryCell"
     }
     
-    private var photos: [UnsplashPhoto] = []
-    
     private var collectionView: UICollectionView?
     private var collectionViewFlowLayout: UICollectionViewFlowLayout?
+    
+    private var photos: [UnsplashPhoto] = []
+    private let networkManager: NetworkManager
+    
+    init(networkManager: NetworkManager) {
+        self.networkManager = networkManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +28,7 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     private func fetchPhotos() {
-        NetworkManager.getPhotos { [weak self] (fetchedPhotos) in
+        networkManager.getPhotos { [weak self] fetchedPhotos in
             guard let self = self else { return }
             
             if let fetchedPhotos = fetchedPhotos {

@@ -12,9 +12,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         let navigationController = UINavigationController()
         window?.rootViewController = navigationController
-
-        let mainViewController = GalleryViewController()
-        navigationController.setViewControllers([mainViewController], animated: false)
+        
+        let unsplashNetworkManager = UnsplashNetworkManager()
+        let galleryViewController = GalleryViewController(networkManager: unsplashNetworkManager)
+        navigationController.setViewControllers([galleryViewController], animated: false)
 
         window?.makeKeyAndVisible()
         return true

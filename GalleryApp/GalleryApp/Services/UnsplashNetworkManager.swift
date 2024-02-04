@@ -15,12 +15,14 @@ private enum NetworkSettings {
     }
 }
 
-final class NetworkManager {
-    private static var page = 1
-    private static let photosPerPage = 30
+final class UnsplashNetworkManager: NetworkManager {
+    private var page = 1
+    private let photosPerPage = 30
     
-    static func getPhotos(completion: @escaping ([UnsplashPhoto]?) -> Void) {
-        makeRequest { data, error in
+    func getPhotos(completion: @escaping ([UnsplashPhoto]?) -> Void) {
+        makeRequest { [weak self] data, error in
+            guard let self = self else { return }
+            
             guard let data = data, error == nil else {
                 completion(nil)
                 return
@@ -31,7 +33,7 @@ final class NetworkManager {
         }
     }
     
-    private static func decodeJSON<T: Decodable>(type: T.Type, from data: Data) -> T? {
+    private func decodeJSON<T: Decodable>(type: T.Type, from data: Data) -> T? {
         let decoder = JSONDecoder()
         
         do {
@@ -42,7 +44,7 @@ final class NetworkManager {
         }
     }
     
-    private static func makeRequest(completion: @escaping (Data?, Error?) -> Void) {
+    private func makeRequest(completion: @escaping (Data?, Error?) -> Void) {
         guard let url = createURL() else {
             completion(nil, NSError(domain: "NetworkManager",
                                     code: 400,
@@ -60,7 +62,7 @@ final class NetworkManager {
         task.resume()
     }
     
-    private static func createURL() -> URL? {
+    private func createURL() -> URL? {
         var components = URLComponents()
         components.scheme = NetworkSettings.APIRequest.scheme.rawValue
         components.host = NetworkSettings.APIRequest.host.rawValue
@@ -72,8 +74,7 @@ final class NetworkManager {
         return components.url
     }
     
-    private static func createDataTask(with request: URLRequest,
-                                       completion: @escaping (Data?, Error?) -> Void) -> URLSessionDataTask {
+    private func createDataTask(with request: URLRequest, completion: @escaping (Data?, Error?) -> Void) -> URLSessionDataTask {
         return URLSession.shared.dataTask(with: request) { data, _, error in
             DispatchQueue.main.async {
                 completion(data, error)
