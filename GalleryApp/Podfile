@@ -6,5 +6,6 @@ target 'GalleryApp' do
   use_frameworks!
 
   pod 'SkeletonView'
+  pod 'SwiftLint'
 
 end

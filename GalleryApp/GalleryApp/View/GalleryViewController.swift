@@ -1,5 +1,5 @@
 import UIKit
- 
+
 final class GalleryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     private enum Constants {
         static let navigationItemTitle = "Eloquence Art Gallery"
@@ -104,7 +104,8 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.galleryCell, for: indexPath) as? GalleryCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.galleryCell,
+                                                            for: indexPath) as? GalleryCell else {
             fatalError("The registered type for the cell does not match the casting")
         }
         cell.option = photos[indexPath.item]

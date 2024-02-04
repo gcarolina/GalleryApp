@@ -4,10 +4,10 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         UINavigationBar.appearance().barTintColor = Colors.paleGrey
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : Colors.teal]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.teal]
         
         window = UIWindow(frame: UIScreen.main.bounds)
         let navigationController = UINavigationController()
@@ -20,4 +20,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
-

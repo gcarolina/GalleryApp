@@ -88,7 +88,8 @@ final class GalleryCell: UICollectionViewCell {
     private func setUpAnimation() {
         image.isSkeletonable = true
         let gradient = SkeletonGradient(baseColor: Colors.paleGrey)
-        let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .topLeftBottomRight, duration: 1.5)
+        let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .topLeftBottomRight,
+                                                                        duration: 1.5)
         image.showAnimatedGradientSkeleton(usingGradient: gradient, animation: animation, transition: .crossDissolve(0.25))
     }
     
@@ -99,7 +100,7 @@ final class GalleryCell: UICollectionViewCell {
     private func loadImage(from urlString: String) {
         guard let url = URL(string: urlString) else { return }
 
-        URLSession.shared.dataTask(with: url) { data, response, error in
+        URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else {
                 return
             }
