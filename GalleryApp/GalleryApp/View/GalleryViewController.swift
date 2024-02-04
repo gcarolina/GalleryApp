@@ -108,7 +108,7 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
                                                             for: indexPath) as? GalleryCell else {
             fatalError("The registered type for the cell does not match the casting")
         }
-        cell.option = photos[indexPath.item]
+        cell.photo = photos[indexPath.item]
         return cell
     }
     

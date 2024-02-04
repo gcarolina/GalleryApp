@@ -1,5 +1,6 @@
 import UIKit
 import SkeletonView
+import Kingfisher
 
 final class GalleryCell: UICollectionViewCell {
     private var animationPlayed = false
@@ -24,10 +25,10 @@ final class GalleryCell: UICollectionViewCell {
         return button
     }()
     
-    var option: UnsplashPhoto? {
+    var photo: UnsplashPhoto? {
         didSet {
-            guard let option = option else { return }
-            loadImage(from: option.urls.thumb)
+            guard let photo = photo else { return }
+            loadImage(from: photo.urls.thumb)
         }
     }
     
@@ -99,16 +100,8 @@ final class GalleryCell: UICollectionViewCell {
     
     private func loadImage(from urlString: String) {
         guard let url = URL(string: urlString) else { return }
-
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data, error == nil else {
-                return
-            }
-
-            DispatchQueue.main.async {
-                self.hideSkeleton()
-                self.image.image = UIImage(data: data)
-            }
-        }.resume()
+        image.kf.setImage(with: url, options: [.cacheOriginalImage]) { _ in
+            self.hideSkeleton()
+        }
     }
 }
