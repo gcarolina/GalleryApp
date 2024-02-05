@@ -16,6 +16,12 @@ private enum NetworkSettings {
 }
 
 final class UnsplashNetworkManager: NetworkManager {
+    private enum Constants {
+        static let jsonDecodingFailureMessage = NSLocalizedString("Failed to decode JSON: %@", comment: "")
+        static let urlCreationFailureMessage = NSLocalizedString("Failed to create URL", comment: "")
+        static let domain = "NetworkManager"
+    }
+    
     private var page = 1
     private let photosPerPage = 30
     
@@ -39,16 +45,16 @@ final class UnsplashNetworkManager: NetworkManager {
         do {
             return try decoder.decode(type.self, from: data)
         } catch {
-            print("Failed to decode JSON: \(error)")
+            print(String(format: Constants.jsonDecodingFailureMessage, error.localizedDescription))
             return nil
         }
     }
     
     private func makeRequest(completion: @escaping (Data?, Error?) -> Void) {
         guard let url = createURL() else {
-            completion(nil, NSError(domain: "NetworkManager",
+            completion(nil, NSError(domain: Constants.domain,
                                     code: 400,
-                                    userInfo: [NSLocalizedDescriptionKey: "Failed to create URL"]))
+                                    userInfo: [NSLocalizedDescriptionKey: Constants.urlCreationFailureMessage]))
             return
         }
         var request = URLRequest(url: url)
