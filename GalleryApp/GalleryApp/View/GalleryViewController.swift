@@ -9,11 +9,12 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
     private var collectionView: UICollectionView?
     private var collectionViewFlowLayout: UICollectionViewFlowLayout?
     
-    private var photos: [UnsplashPhoto] = []
     private let networkManager: NetworkManager
+    private var galleryViewModel: GalleryViewModel!
     
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
+        self.galleryViewModel = GalleryViewModel(networkManager: networkManager)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -24,18 +25,13 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        fetchPhotos()
-    }
-    
-    private func fetchPhotos() {
-        networkManager.getPhotos { [weak self] fetchedPhotos in
-            guard let self = self else { return }
-            
-            if let fetchedPhotos = fetchedPhotos {
-                self.photos.append(contentsOf: fetchedPhotos)
-                self.collectionView?.reloadData()
+        galleryViewModel.fetchPhotos { errorMessage in
+            if let errorMessage = errorMessage {
+                print(errorMessage)
             } else {
-                print("Error fetching photos")
+                DispatchQueue.main.async {
+                    self.collectionView?.reloadData()
+                }
             }
         }
     }
@@ -110,7 +106,7 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        photos.count
+        galleryViewModel.photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -118,7 +114,7 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
                                                             for: indexPath) as? GalleryCell else {
             fatalError("The registered type for the cell does not match the casting")
         }
-        cell.photo = photos[indexPath.item]
+        cell.photo = galleryViewModel.photos[indexPath.item]
         return cell
     }
     
@@ -127,7 +123,15 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
         let lastItemInSection = collectionView.numberOfItems(inSection: lastSection) - 1
         
         if indexPath.section == lastSection && indexPath.item == lastItemInSection {
-            fetchPhotos()
+            galleryViewModel.fetchPhotos { errorMessage in
+                if let errorMessage = errorMessage {
+                    print(errorMessage)
+                } else {
+                    DispatchQueue.main.async {
+                        self.collectionView?.reloadData()
+                    }
+                }
+            }
         }
     }
 }
