@@ -1,16 +1,25 @@
 import UIKit
+import Combine
 
 final class GalleryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     private enum Constants {
         static let navigationItemTitle = "Eloquence Art Gallery"
         static let galleryCell = "GalleryCell"
+        static let decrement = 1
+    }
+    
+    private enum LayoutConstants {
+        static let itemSpacing: CGFloat = 2
+        static let numberOfItemsInCompactRow: CGFloat = 4
+        static let numberOfItemsInRegularRow: CGFloat = 2
     }
     
     private var collectionView: UICollectionView?
     private var collectionViewFlowLayout: UICollectionViewFlowLayout?
     
     private let networkManager: NetworkManager
-    private var galleryViewModel: GalleryViewModel!
+    private var galleryViewModel: GalleryViewModel
+    private var cancellables: Set<AnyCancellable> = []
     
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
@@ -25,15 +34,17 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        galleryViewModel.fetchPhotos { errorMessage in
-            if let errorMessage = errorMessage {
-                print(errorMessage)
-            } else {
-                DispatchQueue.main.async {
-                    self.collectionView?.reloadData()
-                }
+        bindViewModel()
+        galleryViewModel.fetchPhotos()
+    }
+    
+    private func bindViewModel() {
+        galleryViewModel.$photos
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.collectionView?.reloadData()
             }
-        }
+            .store(in: &cancellables)
     }
     
     override func viewWillLayoutSubviews() {
@@ -62,10 +73,10 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
     
     private func configureUI() {
         navigationItem.title = Constants.navigationItemTitle
-        setupCollectionView()
+        configureCollectionView()
     }
     
-    private func setupCollectionView() {
+    private func configureCollectionView() {
         collectionViewFlowLayout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewFlowLayout!)
         
@@ -89,20 +100,16 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
     private func configureCollectionViewLayout() {
         guard let collectionView = collectionView, let layout = collectionViewFlowLayout else { return }
         
-        let itemSpacing: CGFloat = 2
-        
         if traitCollection.verticalSizeClass == .compact {
-            let numberOfItemsInRow: CGFloat = 4
-            let width = (collectionView.bounds.width - (itemSpacing * (numberOfItemsInRow - 1))) / numberOfItemsInRow
+            let width = (collectionView.bounds.width - (LayoutConstants.itemSpacing * (LayoutConstants.numberOfItemsInCompactRow - 1))) / LayoutConstants.numberOfItemsInCompactRow
             layout.itemSize = CGSize(width: width, height: width)
         } else {
-            let numberOfItemsInRow: CGFloat = 2
-            let width = (collectionView.bounds.width - (itemSpacing * (numberOfItemsInRow - 1))) / numberOfItemsInRow
+            let width = (collectionView.bounds.width - (LayoutConstants.itemSpacing * (LayoutConstants.numberOfItemsInRegularRow - 1))) / LayoutConstants.numberOfItemsInRegularRow
             layout.itemSize = CGSize(width: width, height: width)
         }
         
-        layout.minimumInteritemSpacing = itemSpacing
-        layout.minimumLineSpacing = itemSpacing
+        layout.minimumInteritemSpacing = LayoutConstants.itemSpacing
+        layout.minimumLineSpacing = LayoutConstants.itemSpacing
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -119,19 +126,11 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let lastSection = collectionView.numberOfSections - 1
-        let lastItemInSection = collectionView.numberOfItems(inSection: lastSection) - 1
+        let lastSection = collectionView.numberOfSections - Constants.decrement
+        let lastItemInSection = collectionView.numberOfItems(inSection: lastSection) - Constants.decrement
         
         if indexPath.section == lastSection && indexPath.item == lastItemInSection {
-            galleryViewModel.fetchPhotos { errorMessage in
-                if let errorMessage = errorMessage {
-                    print(errorMessage)
-                } else {
-                    DispatchQueue.main.async {
-                        self.collectionView?.reloadData()
-                    }
-                }
-            }
+            galleryViewModel.fetchPhotos()
         }
     }
 }

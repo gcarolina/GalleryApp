@@ -95,10 +95,10 @@
 			isa = PBXGroup;
 			children = (
 				F177A2482B6A6A0700FA5BC4 /* Models */,
-				F177A23F2B69267600FA5BC4 /* View */,
+				F177A23F2B69267600FA5BC4 /* Views */,
 				F177A27B2B70E26500FA5BC4 /* ViewModels */,
 				F177A23B2B691FF100FA5BC4 /* Core */,
-				F177A24D2B6A6D2F00FA5BC4 /* Services */,
+				F177A2802B717E5800FA5BC4 /* Services */,
 				F177A2272B66DF7100FA5BC4 /* AppDelegate.swift */,
 				F177A2352B66DF7900FA5BC4 /* Info.plist */,
 				F177A2402B69269300FA5BC4 /* resources */,
@@ -125,13 +125,12 @@
 			path = Enums;
 			sourceTree = "<group>";
 		};
-		F177A23F2B69267600FA5BC4 /* View */ = {
+		F177A23F2B69267600FA5BC4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F177A22B2B66DF7100FA5BC4 /* GalleryViewController.swift */,
-				F177A2462B698ED800FA5BC4 /* GalleryCell.swift */,
+				F177A2812B717E7B00FA5BC4 /* Gallery */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		F177A2402B69269300FA5BC4 /* resources */ = {
@@ -160,12 +159,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		F177A24D2B6A6D2F00FA5BC4 /* Services */ = {
+		F177A24D2B6A6D2F00FA5BC4 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
 				F177A24E2B6A6D4200FA5BC4 /* UnsplashNetworkManager.swift */,
 			);
-			path = Services;
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		F177A2762B70262600FA5BC4 /* Protocols */ = {
@@ -182,6 +181,23 @@
 				F177A27C2B70E27F00FA5BC4 /* GalleryViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		F177A2802B717E5800FA5BC4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F177A24D2B6A6D2F00FA5BC4 /* Networking */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F177A2812B717E7B00FA5BC4 /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				F177A22B2B66DF7100FA5BC4 /* GalleryViewController.swift */,
+				F177A2462B698ED800FA5BC4 /* GalleryCell.swift */,
+			);
+			path = Gallery;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

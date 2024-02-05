@@ -101,6 +101,7 @@ final class GalleryCell: UICollectionViewCell {
     private func loadImage(from urlString: String) {
         guard let url = URL(string: urlString) else { return }
         image.kf.setImage(with: url, options: [.cacheOriginalImage]) { _ in
+            self.animationPlayed = true
             self.hideSkeleton()
         }
     }
