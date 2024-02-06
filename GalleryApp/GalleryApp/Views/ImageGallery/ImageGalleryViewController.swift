@@ -125,6 +125,15 @@ final class ImageGalleryViewController: UIViewController, UICollectionViewDelega
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let imageDetailViewModel = ImageDetailViewModel()
+        imageDetailViewModel.photos = self.galleryViewModel.photos
+
+        let imageDetailVC = ImageDetailViewController()
+        imageDetailVC.imageDetailViewModel = imageDetailViewModel
+        navigationController?.pushViewController(imageDetailVC, animated: true)
+    }
+
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let lastSection = collectionView.numberOfSections - Constants.decrement
         let lastItemInSection = collectionView.numberOfItems(inSection: lastSection) - Constants.decrement

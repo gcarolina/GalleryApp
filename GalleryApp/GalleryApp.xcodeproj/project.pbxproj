@@ -23,6 +23,7 @@
 		F177A27D2B70E27F00FA5BC4 /* ImageGalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A27C2B70E27F00FA5BC4 /* ImageGalleryViewModel.swift */; };
 		F177A2842B72342400FA5BC4 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A2832B72342400FA5BC4 /* ImageDetailViewController.swift */; };
 		F177A2862B7234B900FA5BC4 /* ImageDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A2852B7234B900FA5BC4 /* ImageDetailCell.swift */; };
+		F177A2882B723A4900FA5BC4 /* ImageDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A2872B723A4900FA5BC4 /* ImageDetailViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		F177A27C2B70E27F00FA5BC4 /* ImageGalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewModel.swift; sourceTree = "<group>"; };
 		F177A2832B72342400FA5BC4 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 		F177A2852B7234B900FA5BC4 /* ImageDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailCell.swift; sourceTree = "<group>"; };
+		F177A2872B723A4900FA5BC4 /* ImageDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				F177A27C2B70E27F00FA5BC4 /* ImageGalleryViewModel.swift */,
+				F177A2872B723A4900FA5BC4 /* ImageDetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F177A24F2B6A6D4200FA5BC4 /* UnsplashNetworkManager.swift in Sources */,
+				F177A2882B723A4900FA5BC4 /* ImageDetailViewModel.swift in Sources */,
 				F177A22C2B66DF7100FA5BC4 /* ImageGalleryViewController.swift in Sources */,
 				F177A2752B70260300FA5BC4 /* NetworkManager.swift in Sources */,
 				F177A2472B698ED800FA5BC4 /* ImageGalleryCell.swift in Sources */,

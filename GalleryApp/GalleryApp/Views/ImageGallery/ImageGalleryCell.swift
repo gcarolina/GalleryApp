@@ -12,7 +12,7 @@ final class ImageGalleryCell: UICollectionViewCell {
         return imageView
     }()
     
-    lazy var likedImage: UIImage? = {
+    lazy var favoriteImage: UIImage? = {
         UIImage(systemName: "heart.fill")
     }()
     
@@ -57,7 +57,7 @@ final class ImageGalleryCell: UICollectionViewCell {
     }
     
     private func configureUI() {
-        likedButton.setBackgroundImage(likedImage, for: .normal)
+        likedButton.setBackgroundImage(favoriteImage, for: .normal)
         addSubview(image)
         addSubview(likedButton)
         
