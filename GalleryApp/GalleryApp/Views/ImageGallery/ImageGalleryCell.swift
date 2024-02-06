@@ -2,7 +2,7 @@ import UIKit
 import SkeletonView
 import Kingfisher
 
-final class GalleryCell: UICollectionViewCell {
+final class ImageGalleryCell: UICollectionViewCell {
     private var animationPlayed = false
     
     private let image: UIImageView = {

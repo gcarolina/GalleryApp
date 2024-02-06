@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-final class GalleryViewModel: ObservableObject {
+final class ImageGalleryViewModel: ObservableObject {
     @Published var photos: [UnsplashPhoto] = []
     
     private let networkManager: NetworkManager

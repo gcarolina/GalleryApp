@@ -9,18 +9,18 @@
 /* Begin PBXBuildFile section */
 		CCC43629C34697E1F36A52E9 /* Pods_GalleryApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446768BA50ADBC7DD7FFB46F /* Pods_GalleryApp.framework */; };
 		F177A2282B66DF7100FA5BC4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A2272B66DF7100FA5BC4 /* AppDelegate.swift */; };
-		F177A22C2B66DF7100FA5BC4 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A22B2B66DF7100FA5BC4 /* GalleryViewController.swift */; };
+		F177A22C2B66DF7100FA5BC4 /* ImageGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A22B2B66DF7100FA5BC4 /* ImageGalleryViewController.swift */; };
 		F177A2312B66DF7900FA5BC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F177A2302B66DF7900FA5BC4 /* Assets.xcassets */; };
 		F177A2342B66DF7900FA5BC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F177A2322B66DF7900FA5BC4 /* LaunchScreen.storyboard */; };
 		F177A23E2B69201E00FA5BC4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A23D2B69201E00FA5BC4 /* Colors.swift */; };
 		F177A2422B6937FC00FA5BC4 /* CustomGradientStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A2412B6937FC00FA5BC4 /* CustomGradientStyle.swift */; };
 		F177A2452B69388300FA5BC4 /* CAGradientLayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A2442B69388300FA5BC4 /* CAGradientLayerExtension.swift */; };
-		F177A2472B698ED800FA5BC4 /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A2462B698ED800FA5BC4 /* GalleryCell.swift */; };
+		F177A2472B698ED800FA5BC4 /* ImageGalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A2462B698ED800FA5BC4 /* ImageGalleryCell.swift */; };
 		F177A24A2B6A6A1900FA5BC4 /* UnsplashPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A2492B6A6A1900FA5BC4 /* UnsplashPhoto.swift */; };
 		F177A24C2B6A6C9400FA5BC4 /* URLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A24B2B6A6C9400FA5BC4 /* URLS.swift */; };
 		F177A24F2B6A6D4200FA5BC4 /* UnsplashNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A24E2B6A6D4200FA5BC4 /* UnsplashNetworkManager.swift */; };
 		F177A2752B70260300FA5BC4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A2742B70260300FA5BC4 /* NetworkManager.swift */; };
-		F177A27D2B70E27F00FA5BC4 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A27C2B70E27F00FA5BC4 /* GalleryViewModel.swift */; };
+		F177A27D2B70E27F00FA5BC4 /* ImageGalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A27C2B70E27F00FA5BC4 /* ImageGalleryViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,19 +29,19 @@
 		BDDC307557344FA24503FF8C /* Pods-GalleryApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GalleryApp.release.xcconfig"; path = "Target Support Files/Pods-GalleryApp/Pods-GalleryApp.release.xcconfig"; sourceTree = "<group>"; };
 		F177A2242B66DF7100FA5BC4 /* GalleryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GalleryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F177A2272B66DF7100FA5BC4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F177A22B2B66DF7100FA5BC4 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		F177A22B2B66DF7100FA5BC4 /* ImageGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewController.swift; sourceTree = "<group>"; };
 		F177A2302B66DF7900FA5BC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F177A2332B66DF7900FA5BC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F177A2352B66DF7900FA5BC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F177A23D2B69201E00FA5BC4 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		F177A2412B6937FC00FA5BC4 /* CustomGradientStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGradientStyle.swift; sourceTree = "<group>"; };
 		F177A2442B69388300FA5BC4 /* CAGradientLayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAGradientLayerExtension.swift; sourceTree = "<group>"; };
-		F177A2462B698ED800FA5BC4 /* GalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCell.swift; sourceTree = "<group>"; };
+		F177A2462B698ED800FA5BC4 /* ImageGalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryCell.swift; sourceTree = "<group>"; };
 		F177A2492B6A6A1900FA5BC4 /* UnsplashPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPhoto.swift; sourceTree = "<group>"; };
 		F177A24B2B6A6C9400FA5BC4 /* URLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLS.swift; sourceTree = "<group>"; };
 		F177A24E2B6A6D4200FA5BC4 /* UnsplashNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashNetworkManager.swift; sourceTree = "<group>"; };
 		F177A2742B70260300FA5BC4 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		F177A27C2B70E27F00FA5BC4 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
+		F177A27C2B70E27F00FA5BC4 /* ImageGalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +128,7 @@
 		F177A23F2B69267600FA5BC4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F177A2812B717E7B00FA5BC4 /* Gallery */,
+				F177A2812B717E7B00FA5BC4 /* ImageGallery */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -178,7 +178,7 @@
 		F177A27B2B70E26500FA5BC4 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				F177A27C2B70E27F00FA5BC4 /* GalleryViewModel.swift */,
+				F177A27C2B70E27F00FA5BC4 /* ImageGalleryViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -191,13 +191,13 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		F177A2812B717E7B00FA5BC4 /* Gallery */ = {
+		F177A2812B717E7B00FA5BC4 /* ImageGallery */ = {
 			isa = PBXGroup;
 			children = (
-				F177A22B2B66DF7100FA5BC4 /* GalleryViewController.swift */,
-				F177A2462B698ED800FA5BC4 /* GalleryCell.swift */,
+				F177A22B2B66DF7100FA5BC4 /* ImageGalleryViewController.swift */,
+				F177A2462B698ED800FA5BC4 /* ImageGalleryCell.swift */,
 			);
-			path = Gallery;
+			path = ImageGallery;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,13 +335,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F177A24F2B6A6D4200FA5BC4 /* UnsplashNetworkManager.swift in Sources */,
-				F177A22C2B66DF7100FA5BC4 /* GalleryViewController.swift in Sources */,
+				F177A22C2B66DF7100FA5BC4 /* ImageGalleryViewController.swift in Sources */,
 				F177A2752B70260300FA5BC4 /* NetworkManager.swift in Sources */,
-				F177A2472B698ED800FA5BC4 /* GalleryCell.swift in Sources */,
+				F177A2472B698ED800FA5BC4 /* ImageGalleryCell.swift in Sources */,
 				F177A23E2B69201E00FA5BC4 /* Colors.swift in Sources */,
 				F177A24C2B6A6C9400FA5BC4 /* URLS.swift in Sources */,
 				F177A2452B69388300FA5BC4 /* CAGradientLayerExtension.swift in Sources */,
-				F177A27D2B70E27F00FA5BC4 /* GalleryViewModel.swift in Sources */,
+				F177A27D2B70E27F00FA5BC4 /* ImageGalleryViewModel.swift in Sources */,
 				F177A2422B6937FC00FA5BC4 /* CustomGradientStyle.swift in Sources */,
 				F177A2282B66DF7100FA5BC4 /* AppDelegate.swift in Sources */,
 				F177A24A2B6A6A1900FA5BC4 /* UnsplashPhoto.swift in Sources */,

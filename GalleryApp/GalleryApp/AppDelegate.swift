@@ -14,8 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = navigationController
         
         let unsplashNetworkManager = UnsplashNetworkManager()
-        let galleryViewController = GalleryViewController(networkManager: unsplashNetworkManager)
-        navigationController.setViewControllers([galleryViewController], animated: false)
+        let imageGalleryViewController = ImageGalleryViewController(networkManager: unsplashNetworkManager)
+        navigationController.setViewControllers([imageGalleryViewController], animated: false)
 
         window?.makeKeyAndVisible()
         return true

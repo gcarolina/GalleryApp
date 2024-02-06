@@ -1,10 +1,10 @@
 import UIKit
 import Combine
 
-final class GalleryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+final class ImageGalleryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     private enum Constants {
         static let navigationItemTitle = "Eloquence Art Gallery"
-        static let galleryCell = "GalleryCell"
+        static let imageGalleryCell = "ImageGalleryCell"
         static let decrement = 1
     }
     
@@ -18,12 +18,12 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
     private var collectionViewFlowLayout: UICollectionViewFlowLayout?
     
     private let networkManager: NetworkManager
-    private var galleryViewModel: GalleryViewModel
+    private var galleryViewModel: ImageGalleryViewModel
     private var cancellables: Set<AnyCancellable> = []
     
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
-        self.galleryViewModel = GalleryViewModel(networkManager: networkManager)
+        self.galleryViewModel = ImageGalleryViewModel(networkManager: networkManager)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -85,7 +85,7 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(GalleryCell.self, forCellWithReuseIdentifier: Constants.galleryCell)
+        collectionView.register(ImageGalleryCell.self, forCellWithReuseIdentifier: Constants.imageGalleryCell)
         collectionView.backgroundColor = .clear
         view.addSubview(collectionView)
         
@@ -117,8 +117,8 @@ final class GalleryViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.galleryCell,
-                                                            for: indexPath) as? GalleryCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.imageGalleryCell,
+                                                            for: indexPath) as? ImageGalleryCell else {
             fatalError("The registered type for the cell does not match the casting")
         }
         cell.photo = galleryViewModel.photos[indexPath.item]
