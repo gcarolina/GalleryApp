@@ -128,6 +128,7 @@ final class ImageGalleryViewController: UIViewController, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let imageDetailViewModel = ImageDetailViewModel()
         imageDetailViewModel.photos = self.galleryViewModel.photos
+        imageDetailViewModel.initialPhotoIndex = indexPath.item
 
         let imageDetailVC = ImageDetailViewController()
         imageDetailVC.imageDetailViewModel = imageDetailViewModel

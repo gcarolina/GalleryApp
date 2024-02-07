@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 final class ImageDetailCell: UICollectionViewCell {
     private let image: UIImageView = {
@@ -37,7 +38,6 @@ final class ImageDetailCell: UICollectionViewCell {
         didSet {
             guard let photo = photo else { return }
             loadImage(from: photo.urls.regular)
-            label.text = photo.altDescription
         }
     }
     
@@ -49,12 +49,6 @@ final class ImageDetailCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configureUI()
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        image.image = nil
-        label.text = nil
     }
     
     private func configureUI() {
@@ -70,7 +64,7 @@ final class ImageDetailCell: UICollectionViewCell {
             
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             
             likedButton.topAnchor.constraint(equalTo: image.topAnchor, constant: 10),
             likedButton.trailingAnchor.constraint(equalTo: image.trailingAnchor, constant: -15),
@@ -96,6 +90,8 @@ final class ImageDetailCell: UICollectionViewCell {
     }
     
     private func loadImage(from urlString: String) {
+        self.label.text = self.photo?.altDescription
+        
         guard let url = URL(string: urlString) else { return }
         image.kf.setImage(with: url, options: [.cacheOriginalImage]) { _ in
             self.image.layer.cornerRadius = 10

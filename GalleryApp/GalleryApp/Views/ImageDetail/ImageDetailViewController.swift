@@ -8,7 +8,12 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
     
     private enum LayoutConstants {
         static let itemSpacing: CGFloat = 10
-        static let numberOfItemsInCompactRow: CGFloat = 4
+        static let numberOfItemsInCompactRow: CGFloat = 2
+        static let numberOfItemsInRegularRow: CGFloat = 1
+    }
+    
+    var initialPhotoIndex: IndexPath {
+        IndexPath(item: imageDetailViewModel?.initialPhotoIndex ?? .zero, section: 0)
     }
     
     private var collectionView: UICollectionView?
@@ -26,18 +31,12 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
         configureUI()
     }
     
-    private func bindViewModel() {
-        imageDetailViewModel?.$photos
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.collectionView?.reloadData()
-            }
-            .store(in: &cancellables)
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        collectionView?.layoutIfNeeded()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let imageDetailViewModel = imageDetailViewModel {
+            imageDetailViewModel.initialPhotoIndex = initialPhotoIndex.item
+        }
+        collectionView?.scrollToItem(at: initialPhotoIndex, at: .centeredHorizontally, animated: true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -59,13 +58,24 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
         }
     }
     
+    private func bindViewModel() {
+        imageDetailViewModel?.$photos
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.collectionView?.reloadData()
+                self?.collectionView?.layoutIfNeeded()
+            }
+            .store(in: &cancellables)
+    }
+    
     private func configureUI() {
         configureCollectionView()
     }
     
     private func configureCollectionView() {
         collectionViewFlowLayout = UICollectionViewFlowLayout()
-        collectionViewFlowLayout?.scrollDirection = .horizontal
+        guard let layout = collectionViewFlowLayout else { return }
+        layout.scrollDirection = .horizontal
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewFlowLayout!)
         
         guard let collectionView = collectionView else { return }
@@ -95,7 +105,7 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
         if traitCollection.verticalSizeClass == .compact {
             numberOfItemsInRow = LayoutConstants.numberOfItemsInCompactRow
         } else {
-            numberOfItemsInRow = 1
+            numberOfItemsInRow = LayoutConstants.numberOfItemsInRegularRow
         }
         
         let height = collectionView.bounds.height
