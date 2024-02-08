@@ -37,7 +37,7 @@ final class ImageDetailCell: UICollectionViewCell {
     var photo: UnsplashPhoto? {
         didSet {
             guard let photo = photo else { return }
-            loadImage(from: photo.urls.regular)
+            configureCell(withPhotoURL: photo.urls.regular)
         }
     }
     
@@ -73,10 +73,10 @@ final class ImageDetailCell: UICollectionViewCell {
         ])
         
         likedButton.setBackgroundImage(unfavoriteImage, for: .normal)
-        likedButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+        likedButton.addTarget(self, action: #selector(toggleLikeButtonState), for: .touchUpInside)
     }
     
-    @objc private func likeButtonTapped() {
+    @objc private func toggleLikeButtonState() {
         likedButton.isSelected = !likedButton.isSelected
         likedButton.setBackgroundImage(likedButton.isSelected ? favoriteImage : unfavoriteImage, for: .normal)
     }
@@ -89,7 +89,7 @@ final class ImageDetailCell: UICollectionViewCell {
         view.layer.masksToBounds = false
     }
     
-    private func loadImage(from urlString: String) {
+    private func configureCell(withPhotoURL urlString: String) {
         self.label.text = self.photo?.altDescription
         
         guard let url = URL(string: urlString) else { return }

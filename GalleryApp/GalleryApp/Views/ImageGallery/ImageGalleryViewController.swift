@@ -129,8 +129,7 @@ final class ImageGalleryViewController: UIViewController, UICollectionViewDelega
         imageDetailViewModel.photos = self.galleryViewModel.photos
         imageDetailViewModel.initialPhotoIndex = indexPath.item
 
-        let imageDetailVC = ImageDetailViewController()
-        imageDetailVC.imageDetailViewModel = imageDetailViewModel
+        let imageDetailVC = ImageDetailViewController(imageDetailViewModel: imageDetailViewModel)
         navigationController?.pushViewController(imageDetailVC, animated: true)
     }
 

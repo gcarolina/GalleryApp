@@ -20,15 +20,31 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
     private var collectionViewFlowLayout: UICollectionViewFlowLayout?
     
     private var cancellables: Set<AnyCancellable> = []
-    var imageDetailViewModel: ImageDetailViewModel? {
-        didSet {
-            bindViewModel()
-        }
+    var imageDetailViewModel: ImageDetailViewModel?
+    
+    init(imageDetailViewModel: ImageDetailViewModel) {
+        self.imageDetailViewModel = imageDetailViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindViewModel()
         configureUI()
+    }
+    
+    private func bindViewModel() {
+        imageDetailViewModel?.$photos
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.collectionView?.reloadData()
+                self?.collectionView?.layoutIfNeeded()
+            }
+            .store(in: &cancellables)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -56,16 +72,6 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
         coordinator.animate { _ in
             self.collectionView?.collectionViewLayout.invalidateLayout()
         }
-    }
-    
-    private func bindViewModel() {
-        imageDetailViewModel?.$photos
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.collectionView?.reloadData()
-                self?.collectionView?.layoutIfNeeded()
-            }
-            .store(in: &cancellables)
     }
     
     private func configureUI() {
