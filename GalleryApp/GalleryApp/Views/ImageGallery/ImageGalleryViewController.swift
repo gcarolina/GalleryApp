@@ -17,13 +17,11 @@ final class ImageGalleryViewController: UIViewController, UICollectionViewDelega
     private var collectionView: UICollectionView?
     private var collectionViewFlowLayout: UICollectionViewFlowLayout?
     
-    private let networkManager: NetworkManager
     private var galleryViewModel: ImageGalleryViewModel
     private var cancellables: Set<AnyCancellable> = []
     
-    init(networkManager: NetworkManager) {
-        self.networkManager = networkManager
-        self.galleryViewModel = ImageGalleryViewModel(networkManager: networkManager)
+    init(galleryViewModel: ImageGalleryViewModel) {
+        self.galleryViewModel = galleryViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
