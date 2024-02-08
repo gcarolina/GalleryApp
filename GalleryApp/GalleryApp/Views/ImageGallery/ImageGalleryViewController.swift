@@ -78,7 +78,8 @@ final class ImageGalleryViewController: UIViewController, UICollectionViewDelega
     
     private func configureCollectionView() {
         collectionViewFlowLayout = UICollectionViewFlowLayout()
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewFlowLayout!)
+        guard let collectionViewFlowLayout = collectionViewFlowLayout else { return }
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewFlowLayout)
         
         guard let collectionView = collectionView else { return }
         

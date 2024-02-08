@@ -74,9 +74,9 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
     
     private func configureCollectionView() {
         collectionViewFlowLayout = UICollectionViewFlowLayout()
-        guard let layout = collectionViewFlowLayout else { return }
-        layout.scrollDirection = .horizontal
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewFlowLayout!)
+        guard let collectionViewFlowLayout = collectionViewFlowLayout else { return }
+        collectionViewFlowLayout.scrollDirection = .horizontal
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewFlowLayout)
         
         guard let collectionView = collectionView else { return }
         collectionView.contentInset = UIEdgeInsets.zero
