@@ -1,6 +1,5 @@
 import UIKit
 import AlamofireImage
-import SkeletonView
 
 final class ImageDetailCell: UICollectionViewCell {
     private enum ImageDetailConstants {
@@ -26,6 +25,13 @@ final class ImageDetailCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: ImageDetailConstants.fontSize)
         label.numberOfLines = ImageDetailConstants.numberOfLines
         return label
+    }()
+    
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.color = Colors.teal
+        return indicator
     }()
     
     lazy var favoriteImage: UIImage? = {
@@ -71,6 +77,7 @@ final class ImageDetailCell: UICollectionViewCell {
         addSubview(imageView)
         addSubview(label)
         addSubview(likedButton)
+        addSubview(activityIndicator)
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor),
@@ -85,7 +92,10 @@ final class ImageDetailCell: UICollectionViewCell {
             likedButton.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 10),
             likedButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -15),
             likedButton.widthAnchor.constraint(equalToConstant: 25),
-            likedButton.heightAnchor.constraint(equalToConstant: 25)
+            likedButton.heightAnchor.constraint(equalToConstant: 25),
+            
+            activityIndicator.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor)
         ])
         
         likedButton.setBackgroundImage(unfavoriteImage, for: .normal)
@@ -108,10 +118,10 @@ final class ImageDetailCell: UICollectionViewCell {
     private func configureCell() {
         guard let photo = photo else { return }
         guard let imageURL = URL(string: photo.urls.regular) else { return }
-        setUpAnimation()
+        activityIndicator.startAnimating()
         
         imageView.af.setImage(withURL: imageURL, completion: { response in
-            self.hideSkeleton()
+            self.activityIndicator.stopAnimating()
             switch response.result {
             case .success:
                 self.imageView.layer.cornerRadius = 10
@@ -123,19 +133,5 @@ final class ImageDetailCell: UICollectionViewCell {
         })
         
         label.text = photo.altDescription
-    }
-    
-    private func setUpAnimation() {
-        imageView.isSkeletonable = true
-        let gradient = SkeletonGradient(baseColor: Colors.paleGrey)
-        let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .topLeftBottomRight,
-                                                                        duration: ImageDetailConstants.duration)
-        imageView.showAnimatedGradientSkeleton(usingGradient: gradient,
-                                               animation: animation,
-                                               transition: .crossDissolve(ImageDetailConstants.transition))
-    }
-    
-    private func hideSkeleton() {
-        imageView.hideSkeleton(transition: .crossDissolve(ImageDetailConstants.transition))
     }
 }
