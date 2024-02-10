@@ -43,16 +43,12 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
             .sink { [weak self] _ in
                 self?.collectionView?.reloadData()
                 self?.collectionView?.layoutIfNeeded()
+                
+                if let initialIndex = self?.imageDetailViewModel?.initialPhotoIndex {
+                    self?.collectionView?.scrollToItem(at: IndexPath(item: initialIndex, section: 0), at: .centeredHorizontally, animated: false)
+                }
             }
             .store(in: &cancellables)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if let imageDetailViewModel = imageDetailViewModel {
-            imageDetailViewModel.initialPhotoIndex = initialPhotoIndex.item
-        }
-        collectionView?.scrollToItem(at: initialPhotoIndex, at: .centeredHorizontally, animated: true)
     }
     
     override func viewDidLayoutSubviews() {

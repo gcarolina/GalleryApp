@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '13.0'
+ platform :ios, '13.0'
 
 target 'GalleryApp' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -8,5 +8,6 @@ target 'GalleryApp' do
   pod 'SkeletonView'
   pod 'SwiftLint'
   pod 'Kingfisher', '~> 7.0'
+  pod 'AlamofireImage', '~> 4.3'
 
 end

@@ -1,8 +1,9 @@
 import UIKit
-import Kingfisher
+import AlamofireImage
+import SkeletonView
 
 final class ImageDetailCell: UICollectionViewCell {
-    private let image: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
@@ -36,8 +37,7 @@ final class ImageDetailCell: UICollectionViewCell {
     
     var photo: UnsplashPhoto? {
         didSet {
-            guard let photo = photo else { return }
-            configureCell(withPhotoURL: photo.urls.regular)
+            configureCell()
         }
     }
     
@@ -51,23 +51,30 @@ final class ImageDetailCell: UICollectionViewCell {
         configureUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+        label.text = nil
+        likedButton.isSelected = false
+    }
+    
     private func configureUI() {
-        addSubview(image)
+        addSubview(imageView)
         addSubview(label)
         addSubview(likedButton)
         
         NSLayoutConstraint.activate([
-            image.topAnchor.constraint(equalTo: topAnchor),
-            image.leadingAnchor.constraint(equalTo: leadingAnchor),
-            image.trailingAnchor.constraint(equalTo: trailingAnchor),
-            image.bottomAnchor.constraint(equalTo: label.topAnchor, constant: -5),
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: label.topAnchor, constant: -5),
             
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             
-            likedButton.topAnchor.constraint(equalTo: image.topAnchor, constant: 10),
-            likedButton.trailingAnchor.constraint(equalTo: image.trailingAnchor, constant: -15),
+            likedButton.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 10),
+            likedButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -15),
             likedButton.widthAnchor.constraint(equalToConstant: 25),
             likedButton.heightAnchor.constraint(equalToConstant: 25)
         ])
@@ -89,14 +96,35 @@ final class ImageDetailCell: UICollectionViewCell {
         view.layer.masksToBounds = false
     }
     
-    private func configureCell(withPhotoURL urlString: String) {
-        self.label.text = self.photo?.altDescription
+    private func configureCell() {
+        guard let photo = photo else { return }
+        guard let imageURL = URL(string: photo.urls.regular) else { return }
+        setUpAnimation()
         
-        guard let url = URL(string: urlString) else { return }
-        image.kf.setImage(with: url, options: [.cacheOriginalImage]) { _ in
-            self.image.layer.cornerRadius = 10
-            self.image.layer.masksToBounds = true
-            self.setupShadow(for: self)
-        }
+        imageView.af.setImage(withURL: imageURL, completion: { response in
+            self.hideSkeleton()
+            switch response.result {
+            case .success:
+                self.imageView.layer.cornerRadius = 10
+                self.imageView.layer.masksToBounds = true
+                self.setupShadow(for: self)
+            case .failure:
+                break
+            }
+        })
+        
+        label.text = photo.altDescription
+    }
+    
+    private func setUpAnimation() {
+        imageView.isSkeletonable = true
+        let gradient = SkeletonGradient(baseColor: Colors.paleGrey)
+        let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .topLeftBottomRight,
+                                                                        duration: 1.5)
+        imageView.showAnimatedGradientSkeleton(usingGradient: gradient, animation: animation, transition: .crossDissolve(0.25))
+    }
+    
+    private func hideSkeleton() {
+        imageView.hideSkeleton(transition: .crossDissolve(0.25))
     }
 }

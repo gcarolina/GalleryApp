@@ -1,24 +1,32 @@
 PODS:
+  - Alamofire (5.8.1)
+  - AlamofireImage (4.3.0):
+    - Alamofire (~> 5.8)
   - Kingfisher (7.10.2)
   - SkeletonView (1.30.4)
   - SwiftLint (0.54.0)
 
 DEPENDENCIES:
+  - AlamofireImage (~> 4.3)
   - Kingfisher (~> 7.0)
   - SkeletonView
   - SwiftLint
 
 SPEC REPOS:
   trunk:
+    - Alamofire
+    - AlamofireImage
     - Kingfisher
     - SkeletonView
     - SwiftLint
 
 SPEC CHECKSUMS:
+  Alamofire: 3ca42e259043ee0dc5c0cdd76c4bc568b8e42af7
+  AlamofireImage: 843953fa97bee5f561cf05d83abd759e590b068d
   Kingfisher: 99edc495d3b7607e6425f0d6f6847b2abd6d716d
   SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
 
-PODFILE CHECKSUM: 0467b9dd31280f2d5cbb152ea01972122466dcef
+PODFILE CHECKSUM: 57aadee379cca96eb39f22549297c9ea12ba3b01
 
 COCOAPODS: 1.8.4
