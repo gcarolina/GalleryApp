@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22G313" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="UnsplashPhotoEntity" representedClassName="UnsplashPhotoEntity" syncable="YES">
+        <attribute name="altDescription" optional="YES" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="likedByUser" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="regularURL" attributeType="String"/>
+        <attribute name="thumbURL" attributeType="String"/>
+    </entity>
+</model>
