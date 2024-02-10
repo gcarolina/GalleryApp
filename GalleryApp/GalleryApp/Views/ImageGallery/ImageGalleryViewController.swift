@@ -9,9 +9,11 @@ final class ImageGalleryViewController: UIViewController, UICollectionViewDelega
     }
     
     private enum LayoutConstants {
+        static let gradientLayerPosition: UInt32 = 0
         static let itemSpacing: CGFloat = 2
         static let numberOfItemsInCompactRow: CGFloat = 4
         static let numberOfItemsInRegularRow: CGFloat = 2
+        static let decrement: CGFloat = 1
     }
     
     private var collectionView: UICollectionView?
@@ -57,7 +59,7 @@ final class ImageGalleryViewController: UIViewController, UICollectionViewDelega
             gradientLayer.frame = view.bounds
         } else {
             let gradientLayer = CAGradientLayer.gradientLayer(for: .greyToTeal, in: view.bounds)
-            view.layer.insertSublayer(gradientLayer, at: 0)
+            view.layer.insertSublayer(gradientLayer, at: LayoutConstants.gradientLayerPosition)
         }
         configureCollectionViewLayout()
     }
@@ -100,10 +102,10 @@ final class ImageGalleryViewController: UIViewController, UICollectionViewDelega
         guard let collectionView = collectionView, let layout = collectionViewFlowLayout else { return }
         
         if traitCollection.verticalSizeClass == .compact {
-            let width = (collectionView.bounds.width - (LayoutConstants.itemSpacing * (LayoutConstants.numberOfItemsInCompactRow - 1))) / LayoutConstants.numberOfItemsInCompactRow
+            let width = (collectionView.bounds.width - (LayoutConstants.itemSpacing * (LayoutConstants.numberOfItemsInCompactRow - LayoutConstants.decrement))) / LayoutConstants.numberOfItemsInCompactRow
             layout.itemSize = CGSize(width: width, height: width)
         } else {
-            let width = (collectionView.bounds.width - (LayoutConstants.itemSpacing * (LayoutConstants.numberOfItemsInRegularRow - 1))) / LayoutConstants.numberOfItemsInRegularRow
+            let width = (collectionView.bounds.width - (LayoutConstants.itemSpacing * (LayoutConstants.numberOfItemsInRegularRow - LayoutConstants.decrement))) / LayoutConstants.numberOfItemsInRegularRow
             layout.itemSize = CGSize(width: width, height: width)
         }
         

@@ -3,6 +3,15 @@ import AlamofireImage
 import SkeletonView
 
 final class ImageDetailCell: UICollectionViewCell {
+    private enum ImageDetailConstants {
+        static let fontSize: CGFloat = 23
+        static let numberOfLines = 0
+        static let favoriteImageName = "heart.fill"
+        static let unfavoriteImage = "heart"
+        static let duration = 1.5
+        static let transition = 0.25
+    }
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -14,17 +23,17 @@ final class ImageDetailCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = Colors.paleGrey
-        label.font = .systemFont(ofSize: 23)
-        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: ImageDetailConstants.fontSize)
+        label.numberOfLines = ImageDetailConstants.numberOfLines
         return label
     }()
     
     lazy var favoriteImage: UIImage? = {
-        UIImage(systemName: "heart.fill")
+        UIImage(systemName: ImageDetailConstants.favoriteImageName)
     }()
     
     lazy var unfavoriteImage: UIImage? = {
-        UIImage(systemName: "heart")
+        UIImage(systemName: ImageDetailConstants.unfavoriteImage)
     }()
     
     private let likedButton: UIButton = {
@@ -120,11 +129,13 @@ final class ImageDetailCell: UICollectionViewCell {
         imageView.isSkeletonable = true
         let gradient = SkeletonGradient(baseColor: Colors.paleGrey)
         let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .topLeftBottomRight,
-                                                                        duration: 1.5)
-        imageView.showAnimatedGradientSkeleton(usingGradient: gradient, animation: animation, transition: .crossDissolve(0.25))
+                                                                        duration: ImageDetailConstants.duration)
+        imageView.showAnimatedGradientSkeleton(usingGradient: gradient,
+                                               animation: animation,
+                                               transition: .crossDissolve(ImageDetailConstants.transition))
     }
     
     private func hideSkeleton() {
-        imageView.hideSkeleton(transition: .crossDissolve(0.25))
+        imageView.hideSkeleton(transition: .crossDissolve(ImageDetailConstants.transition))
     }
 }

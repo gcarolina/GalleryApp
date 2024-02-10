@@ -4,16 +4,19 @@ import Combine
 final class ImageDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     private enum Constants {
         static let imageDetailCell = "ImageDetailCell"
+        static let decrement: CGFloat = 1
+        static let section = 0
     }
     
     private enum LayoutConstants {
+        static let gradientLayerPosition: UInt32 = 0
         static let itemSpacing: CGFloat = 10
         static let numberOfItemsInCompactRow: CGFloat = 2
         static let numberOfItemsInRegularRow: CGFloat = 1
     }
     
     var initialPhotoIndex: IndexPath {
-        IndexPath(item: imageDetailViewModel?.initialPhotoIndex ?? .zero, section: 0)
+        IndexPath(item: imageDetailViewModel?.initialPhotoIndex ?? .zero, section: Constants.section)
     }
     
     private var collectionView: UICollectionView?
@@ -45,7 +48,8 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
                 self?.collectionView?.layoutIfNeeded()
                 
                 if let initialIndex = self?.imageDetailViewModel?.initialPhotoIndex {
-                    self?.collectionView?.scrollToItem(at: IndexPath(item: initialIndex, section: 0), at: .centeredHorizontally, animated: false)
+                    self?.collectionView?.scrollToItem(at: IndexPath(item: initialIndex, section: Constants.section),
+                                                       at: .centeredHorizontally, animated: false)
                 }
             }
             .store(in: &cancellables)
@@ -58,7 +62,7 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
             gradientLayer.frame = view.bounds
         } else {
             let gradientLayer = CAGradientLayer.gradientLayer(for: .greyToTeal, in: view.bounds)
-            view.layer.insertSublayer(gradientLayer, at: 0)
+            view.layer.insertSublayer(gradientLayer, at: LayoutConstants.gradientLayerPosition)
         }
         configureCollectionViewLayout()
     }
@@ -111,7 +115,7 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
         }
         
         let height = collectionView.bounds.height
-        let width = (collectionView.bounds.width - (LayoutConstants.itemSpacing * (numberOfItemsInRow - 1))) / numberOfItemsInRow
+        let width = (collectionView.bounds.width - (LayoutConstants.itemSpacing * (numberOfItemsInRow - Constants.decrement))) / numberOfItemsInRow
         layout.itemSize = CGSize(width: width, height: height)
 
         layout.minimumInteritemSpacing = LayoutConstants.itemSpacing

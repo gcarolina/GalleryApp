@@ -3,9 +3,15 @@ import SkeletonView
 import Kingfisher
 
 final class ImageGalleryCell: UICollectionViewCell {
+    private enum ImageGalleryConstants {
+        static let favoriteImageName = "heart.fill"
+        static let unfavoriteImage = "heart"
+        static let duration = 1.5
+        static let transition = 0.25
+    }
     private var animationPlayed = false
     
-    private let image: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
@@ -13,7 +19,7 @@ final class ImageGalleryCell: UICollectionViewCell {
     }()
     
     lazy var favoriteImage: UIImage? = {
-        UIImage(systemName: "heart.fill")
+        UIImage(systemName: ImageGalleryConstants.favoriteImageName)
     }()
     
     private let likedButton: UIButton = {
@@ -52,29 +58,29 @@ final class ImageGalleryCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        image.hideSkeleton()
-        image.image = nil
+        imageView.hideSkeleton()
+        imageView.image = nil
     }
     
     private func configureUI() {
         likedButton.setBackgroundImage(favoriteImage, for: .normal)
-        addSubview(image)
+        addSubview(imageView)
         addSubview(likedButton)
         
         NSLayoutConstraint.activate([
-            image.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            image.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            image.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
             
-            likedButton.bottomAnchor.constraint(equalTo: image.bottomAnchor, constant: -5),
-            likedButton.trailingAnchor.constraint(equalTo: image.trailingAnchor, constant: -10),
+            likedButton.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -5),
+            likedButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -10),
             likedButton.widthAnchor.constraint(equalToConstant: 25),
             likedButton.heightAnchor.constraint(equalToConstant: 25)
         ])
         
-        image.layer.masksToBounds = true
-        image.layer.cornerRadius = 8
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 8
         setupShadow(for: self)
     }
     
@@ -87,20 +93,22 @@ final class ImageGalleryCell: UICollectionViewCell {
     }
     
     private func setUpAnimation() {
-        image.isSkeletonable = true
+        imageView.isSkeletonable = true
         let gradient = SkeletonGradient(baseColor: Colors.paleGrey)
         let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .topLeftBottomRight,
-                                                                        duration: 1.5)
-        image.showAnimatedGradientSkeleton(usingGradient: gradient, animation: animation, transition: .crossDissolve(0.25))
+                                                                        duration: ImageGalleryConstants.duration)
+        imageView.showAnimatedGradientSkeleton(usingGradient: gradient,
+                                               animation: animation,
+                                               transition: .crossDissolve(ImageGalleryConstants.transition))
     }
     
     private func hideSkeleton() {
-        image.hideSkeleton(transition: .crossDissolve(0.25))
+        imageView.hideSkeleton(transition: .crossDissolve(ImageGalleryConstants.transition))
     }
     
     private func loadImage(from urlString: String) {
         guard let url = URL(string: urlString) else { return }
-        image.kf.setImage(with: url, options: [.cacheOriginalImage]) { _ in
+        imageView.kf.setImage(with: url, options: [.cacheOriginalImage]) { _ in
             self.animationPlayed = true
             self.hideSkeleton()
         }
