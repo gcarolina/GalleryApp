@@ -20,38 +20,27 @@ final class UnsplashNetworkManager: NetworkManager {
         static let jsonDecodingFailureMessage = NSLocalizedString("Failed to decode JSON: %@", comment: "")
         static let urlCreationFailureMessage = NSLocalizedString("Failed to create URL", comment: "")
         static let domain = "NetworkManager"
+        static let photosPerPage = 30
     }
     
     private var page = 1
-    private let photosPerPage = 30
     
     func getPhotos(completion: @escaping ([UnsplashPhoto]?) -> Void) {
         makeRequest { [weak self] data, error in
             guard let self = self else { return }
-            
             guard let data = data, error == nil else {
                 completion(nil)
                 return
             }
-            let results = decodeJSON(type: [UnsplashPhoto].self, from: data)
-            completion(results)
-            self.page += 1
-        }
-    }
-    
-    private func decodeJSON<T: Decodable>(type: T.Type, from data: Data) -> T? {
-        let decoder = JSONDecoder()
-        
-        do {
-            return try decoder.decode(type.self, from: data)
-        } catch {
-            print(String(format: Constants.jsonDecodingFailureMessage, error.localizedDescription))
-            return nil
+            self.decodeUnsplashPhotos(from: data) { results in
+                completion(results)
+                self.page += 1
+            }
         }
     }
     
     private func makeRequest(completion: @escaping (Data?, Error?) -> Void) {
-        guard let url = createURL() else {
+        guard let url = createURLForAPIRequest(page: page, photosPerPage: Constants.photosPerPage) else {
             completion(nil, NSError(domain: Constants.domain,
                                     code: 400,
                                     userInfo: [NSLocalizedDescriptionKey: Constants.urlCreationFailureMessage]))
@@ -60,15 +49,20 @@ final class UnsplashNetworkManager: NetworkManager {
         var request = URLRequest(url: url)
         request.setValue(NetworkSettings.APIKey.accessKey.rawValue,
                          forHTTPHeaderField: NetworkSettings.APIKey.authorization.rawValue)
-        let task = createDataTask(with: request) { data, error in
+        let task = createDataTask(with: request) { result in
             DispatchQueue.main.async {
-                completion(data, error)
+                switch result {
+                case .success(let data):
+                    completion(data, nil)
+                case .failure(let error):
+                    completion(nil, error)
+                }
             }
         }
         task.resume()
     }
     
-    private func createURL() -> URL? {
+    private func createURLForAPIRequest(page: Int, photosPerPage: Int) -> URL? {
         var components = URLComponents()
         components.scheme = NetworkSettings.APIRequest.scheme.rawValue
         components.host = NetworkSettings.APIRequest.host.rawValue
@@ -80,11 +74,28 @@ final class UnsplashNetworkManager: NetworkManager {
         return components.url
     }
     
-    private func createDataTask(with request: URLRequest, completion: @escaping (Data?, Error?) -> Void) -> URLSessionDataTask {
-        return URLSession.shared.dataTask(with: request) { data, _, error in
+    private func createDataTask(with request: URLRequest,
+                                completion: @escaping (Result<Data, Error>) -> Void) -> URLSessionDataTask {
+        return URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
+            guard let self = self else { return }
             DispatchQueue.main.async {
-                completion(data, error)
+                if let error = error {
+                    completion(.failure(error))
+                } else if let data = data {
+                    completion(.success(data))
+                }
             }
+        }
+    }
+    
+    private func decodeUnsplashPhotos(from data: Data, completion: @escaping ([UnsplashPhoto]?) -> Void) {
+        do {
+            let decoder = JSONDecoder()
+            let results = try decoder.decode([UnsplashPhoto].self, from: data)
+            completion(results)
+        } catch {
+            print(String(format: Constants.jsonDecodingFailureMessage, error.localizedDescription))
+            completion(nil)
         }
     }
 }
