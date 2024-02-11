@@ -98,13 +98,20 @@ final class ImageDetailCell: UICollectionViewCell {
             activityIndicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor)
         ])
         
-        likedButton.setBackgroundImage(unfavoriteImage, for: .normal)
         likedButton.addTarget(self, action: #selector(toggleLikeButtonState), for: .touchUpInside)
     }
     
     @objc private func toggleLikeButtonState() {
         likedButton.isSelected = !likedButton.isSelected
         likedButton.setBackgroundImage(likedButton.isSelected ? favoriteImage : unfavoriteImage, for: .normal)
+        
+        if let photo = photo {
+            if likedButton.isSelected {
+                CoreDataManager.saveFavoritePhoto(photo: photo)
+            } else {
+                CoreDataManager.deleteFavoritePhoto(with: photo.id)
+            }
+        }
     }
     
     private func setupShadow(for view: UIView) {
@@ -117,6 +124,9 @@ final class ImageDetailCell: UICollectionViewCell {
     
     private func configureCell() {
         guard let photo = photo else { return }
+        likedButton.isSelected = CoreDataManager.isPhotoLiked(with: photo.id)
+        likedButton.setBackgroundImage(likedButton.isSelected ? favoriteImage : unfavoriteImage, for: .normal)
+        
         guard let imageURL = URL(string: photo.urls.regular) else { return }
         activityIndicator.startAnimating()
         

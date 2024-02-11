@@ -34,8 +34,12 @@ final class ImageGalleryViewController: UIViewController, UICollectionViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        bindViewModel()
         galleryViewModel.fetchPhotos()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        bindViewModel()
     }
     
     private func bindViewModel() {

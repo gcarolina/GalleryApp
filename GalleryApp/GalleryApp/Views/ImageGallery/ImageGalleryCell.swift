@@ -33,8 +33,7 @@ final class ImageGalleryCell: UICollectionViewCell {
     
     var photo: UnsplashPhoto? {
         didSet {
-            guard let photo = photo else { return }
-            loadImage(from: photo.urls.thumb)
+            configureCell()
         }
     }
     
@@ -63,7 +62,6 @@ final class ImageGalleryCell: UICollectionViewCell {
     }
     
     private func configureUI() {
-        likedButton.setBackgroundImage(favoriteImage, for: .normal)
         addSubview(imageView)
         addSubview(likedButton)
         
@@ -104,6 +102,12 @@ final class ImageGalleryCell: UICollectionViewCell {
     
     private func hideSkeleton() {
         imageView.hideSkeleton(transition: .crossDissolve(ImageGalleryConstants.transition))
+    }
+    
+    private func configureCell() {
+        guard let photo = photo else { return }
+        loadImage(from: photo.urls.thumb)
+        likedButton.setBackgroundImage(CoreDataManager.isPhotoLiked(with: photo.id) ? favoriteImage : nil, for: .normal)
     }
     
     private func loadImage(from urlString: String) {
