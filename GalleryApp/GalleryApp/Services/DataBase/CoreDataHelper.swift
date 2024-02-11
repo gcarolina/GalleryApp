@@ -31,7 +31,15 @@ final class CoreDataHelper: CoreDataManager {
     func saveFavoritePhoto(photo: UnsplashPhoto) throws {
         guard let context = context,
               let entity = NSEntityDescription.entity(forEntityName: Constants.entityName, in: context) else { return }
-        
+        let unsplashPhotoEntity = createPhotoEntity(entity: entity, photo: photo)
+        do {
+            try context.save()
+        } catch {
+            throw CoreDataError.saveError(message: Constants.messageForSavingPhotoError + "\(error)")
+        }
+    }
+    
+    private func createPhotoEntity(entity: NSEntityDescription, photo: UnsplashPhoto) -> UnsplashPhotoEntity {
         let photoEntity = UnsplashPhotoEntity(entity: entity, insertInto: context)
         photoEntity.id = photo.id
         photoEntity.altDescription = photo.altDescription
@@ -39,11 +47,7 @@ final class CoreDataHelper: CoreDataManager {
         photoEntity.thumbURL = photo.urls.thumb
         photoEntity.likedByUser = true
         
-        do {
-            try context.save()
-        } catch {
-            throw CoreDataError.saveError(message: Constants.messageForSavingPhotoError + "\(error)")
-        }
+        return photoEntity
     }
     
     func deleteFavoritePhoto(with id: String) throws {
