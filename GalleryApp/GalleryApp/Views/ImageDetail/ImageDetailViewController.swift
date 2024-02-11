@@ -15,10 +15,6 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
         static let numberOfItemsInRegularRow: CGFloat = 1
     }
     
-    var initialPhotoIndex: IndexPath {
-        IndexPath(item: imageDetailViewModel?.initialPhotoIndex ?? .zero, section: Constants.section)
-    }
-    
     private var collectionView: UICollectionView?
     private var collectionViewFlowLayout: UICollectionViewFlowLayout?
     

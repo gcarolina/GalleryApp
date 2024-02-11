@@ -11,28 +11,26 @@ final class CoreDataHelper: CoreDataManager {
         static let messageForDeletingPhotoError = "Error deleting favorite photo"
     }
     
+    private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+    
     func isPhotoLiked(with id: String) -> Bool {
         return (try? fetchPhotoEntity(with: id)) != nil
     }
     
     private func fetchPhotoEntity(with id: String?) throws -> UnsplashPhotoEntity? {
         guard let id = id else { return nil }
-        
         let fetchRequest: NSFetchRequest<UnsplashPhotoEntity> = UnsplashPhotoEntity.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: Constants.format, id)
-        
         do {
-            let result = try (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext.fetch(fetchRequest)
-            return result?.first
+            return try context?.fetch(fetchRequest).first
         } catch {
             throw CoreDataError.fetchError(message: Constants.messageForFetchingError + "\(error)")
         }
     }
     
     func saveFavoritePhoto(photo: UnsplashPhoto) throws {
-        let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
-        
-        guard let entity = NSEntityDescription.entity(forEntityName: Constants.entityName, in: context!) else { return }
+        guard let context = context,
+              let entity = NSEntityDescription.entity(forEntityName: Constants.entityName, in: context) else { return }
         
         let photoEntity = UnsplashPhotoEntity(entity: entity, insertInto: context)
         photoEntity.id = photo.id
@@ -42,18 +40,18 @@ final class CoreDataHelper: CoreDataManager {
         photoEntity.likedByUser = true
         
         do {
-            try context?.save()
+            try context.save()
         } catch {
             throw CoreDataError.saveError(message: Constants.messageForSavingPhotoError + "\(error)")
         }
     }
     
     func deleteFavoritePhoto(with id: String) throws {
-        let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+        guard let context = context else { return }
         do {
             if let photoEntity = try fetchPhotoEntity(with: id) {
-                context?.delete(photoEntity)
-                try? context?.save()
+                context.delete(photoEntity)
+                try? context.save()
             }
         } catch {
             throw CoreDataError.saveError(message: Constants.messageForSavingPhotoError + "\(error)")
