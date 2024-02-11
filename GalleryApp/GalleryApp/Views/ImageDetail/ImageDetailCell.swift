@@ -56,14 +56,22 @@ final class ImageDetailCell: UICollectionViewCell {
         }
     }
     
+    var coreDataManager: CoreDataManager
+    
+    init(coreDataManager: CoreDataManager) {
+        self.coreDataManager = coreDataManager
+        super.init(frame: .zero)
+        configureUI()
+    }
+    
     override init(frame: CGRect) {
+        self.coreDataManager = CoreDataHelper()
         super.init(frame: frame)
         configureUI()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        configureUI()
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func prepareForReuse() {
@@ -107,9 +115,9 @@ final class ImageDetailCell: UICollectionViewCell {
         
         if let photo = photo {
             if likedButton.isSelected {
-                CoreDataManager.saveFavoritePhoto(photo: photo)
+                coreDataManager.saveFavoritePhoto(photo: photo)
             } else {
-                CoreDataManager.deleteFavoritePhoto(with: photo.id)
+                coreDataManager.deleteFavoritePhoto(with: photo.id)
             }
         }
     }
@@ -124,7 +132,7 @@ final class ImageDetailCell: UICollectionViewCell {
     
     private func configureCell() {
         guard let photo = photo else { return }
-        likedButton.isSelected = CoreDataManager.isPhotoLiked(with: photo.id)
+        likedButton.isSelected = coreDataManager.isPhotoLiked(with: photo.id)
         likedButton.setBackgroundImage(likedButton.isSelected ? favoriteImage : unfavoriteImage, for: .normal)
         
         guard let imageURL = URL(string: photo.urls.regular) else { return }

@@ -5,7 +5,6 @@ import Kingfisher
 final class ImageGalleryCell: UICollectionViewCell {
     private enum ImageGalleryConstants {
         static let favoriteImageName = "heart.fill"
-        static let unfavoriteImage = "heart"
         static let duration = 1.5
         static let transition = 0.25
     }
@@ -37,14 +36,22 @@ final class ImageGalleryCell: UICollectionViewCell {
         }
     }
     
+    var coreDataManager: CoreDataManager
+    
+    init(coreDataManager: CoreDataManager) {
+        self.coreDataManager = coreDataManager
+        super.init(frame: .zero)
+        configureUI()
+    }
+    
     override init(frame: CGRect) {
+        self.coreDataManager = CoreDataHelper()
         super.init(frame: frame)
         configureUI()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        configureUI()
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func layoutSubviews() {
@@ -107,7 +114,7 @@ final class ImageGalleryCell: UICollectionViewCell {
     private func configureCell() {
         guard let photo = photo else { return }
         loadImage(from: photo.urls.thumb)
-        likedButton.setBackgroundImage(CoreDataManager.isPhotoLiked(with: photo.id) ? favoriteImage : nil, for: .normal)
+        likedButton.setBackgroundImage(coreDataManager.isPhotoLiked(with: photo.id) ? favoriteImage : nil, for: .normal)
     }
     
     private func loadImage(from urlString: String) {

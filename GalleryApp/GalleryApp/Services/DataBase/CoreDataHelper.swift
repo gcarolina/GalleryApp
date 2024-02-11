@@ -1,12 +1,12 @@
 import UIKit
 import CoreData
 
-final class CoreDataManager {
-    static func isPhotoLiked(with id: String) -> Bool {
+final class CoreDataHelper: CoreDataManager {
+    func isPhotoLiked(with id: String) -> Bool {
         return fetchPhotoEntity(with: id) != nil
     }
     
-    static func fetchPhotoEntity(with id: String?) -> UnsplashPhotoEntity? {
+    private func fetchPhotoEntity(with id: String?) -> UnsplashPhotoEntity? {
         guard let id = id else { return nil }
         
         let fetchRequest: NSFetchRequest<UnsplashPhotoEntity> = UnsplashPhotoEntity.fetchRequest()
@@ -21,7 +21,7 @@ final class CoreDataManager {
         }
     }
     
-    static func saveFavoritePhoto(photo: UnsplashPhoto) {
+    func saveFavoritePhoto(photo: UnsplashPhoto) {
         let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
 
         guard let entity = NSEntityDescription.entity(forEntityName: "UnsplashPhotoEntity", in: context!) else { return }
@@ -40,7 +40,7 @@ final class CoreDataManager {
         }
     }
 
-    static func deleteFavoritePhoto(with id: String) {
+    func deleteFavoritePhoto(with id: String) {
         let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
 
         if let photoEntity = fetchPhotoEntity(with: id) {

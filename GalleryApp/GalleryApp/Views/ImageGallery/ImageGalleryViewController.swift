@@ -21,9 +21,11 @@ final class ImageGalleryViewController: UIViewController, UICollectionViewDelega
     
     private var galleryViewModel: ImageGalleryViewModel
     private var cancellables: Set<AnyCancellable> = []
+    private var coreDataManager: CoreDataManager
     
-    init(galleryViewModel: ImageGalleryViewModel) {
+    init(galleryViewModel: ImageGalleryViewModel, coreDataManager: CoreDataManager) {
         self.galleryViewModel = galleryViewModel
+        self.coreDataManager = coreDataManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -127,6 +129,7 @@ final class ImageGalleryViewController: UIViewController, UICollectionViewDelega
             fatalError("The registered type for the cell does not match the casting")
         }
         cell.photo = galleryViewModel.photos[indexPath.item]
+        cell.coreDataManager = self.coreDataManager
         return cell
     }
     
@@ -135,7 +138,7 @@ final class ImageGalleryViewController: UIViewController, UICollectionViewDelega
         imageDetailViewModel.photos = self.galleryViewModel.photos
         imageDetailViewModel.initialPhotoIndex = indexPath.item
 
-        let imageDetailVC = ImageDetailViewController(imageDetailViewModel: imageDetailViewModel)
+        let imageDetailVC = ImageDetailViewController(imageDetailViewModel: imageDetailViewModel, coreDataManager: coreDataManager)
         navigationController?.pushViewController(imageDetailVC, animated: true)
     }
 

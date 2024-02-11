@@ -24,9 +24,11 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
     
     private var cancellables: Set<AnyCancellable> = []
     var imageDetailViewModel: ImageDetailViewModel?
-    
-    init(imageDetailViewModel: ImageDetailViewModel) {
+    private var coreDataManager: CoreDataManager
+
+    init(imageDetailViewModel: ImageDetailViewModel, coreDataManager: CoreDataManager) {
         self.imageDetailViewModel = imageDetailViewModel
+        self.coreDataManager = coreDataManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -132,6 +134,7 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
             fatalError("The registered type for the cell does not match the casting")
         }
         cell.photo = imageDetailViewModel?.photos[indexPath.item]
+        cell.coreDataManager = self.coreDataManager
         return cell
     }
     
