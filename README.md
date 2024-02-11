@@ -1,12 +1,12 @@
 # GalleryApp
 
-Welcome everyone! I'm Carolina, a perspective beginner in iOS-development. 
+Welcome everyone! I'm Karolina, a perspective beginner in iOS-development. 
 This iOS application is an image gallery app showcasing proficiency in iOS development. It leverages the Unsplash API to fetch curated photos, allowing users to browse, mark favorites, and view image details. It demonstrates my skills in user interface design, data retrieval, and basic data persistence using Swift as the programming language.
 
 ## Frameworks and Pods:
 - Utilizes the Unsplash API for fetching images.
+- Utilizes URLSession for network requests.
 - Integrates AlamofireImage and Kingfisher for efficient response and image caching.
-- Utilize URLSession for network requests.
 - Uses native CoreData for local database management, ensuring seamless data persistence.
 - Implements SwiftLint for code style enforcement.
 - Integrates Skeleton View for smooth loading animations, enhancing user experience.
