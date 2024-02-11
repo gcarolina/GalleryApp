@@ -115,9 +115,9 @@ final class ImageDetailCell: UICollectionViewCell {
         
         if let photo = photo {
             if likedButton.isSelected {
-                coreDataManager.saveFavoritePhoto(photo: photo)
+                try? coreDataManager.saveFavoritePhoto(photo: photo)
             } else {
-                coreDataManager.deleteFavoritePhoto(with: photo.id)
+                try? coreDataManager.deleteFavoritePhoto(with: photo.id)
             }
         }
     }

@@ -2,30 +2,38 @@ import UIKit
 import CoreData
 
 final class CoreDataHelper: CoreDataManager {
-    func isPhotoLiked(with id: String) -> Bool {
-        return fetchPhotoEntity(with: id) != nil
+    private enum Constants {
+        static let format = "id == %@"
+        static let entityName = "UnsplashPhotoEntity"
+        
+        static let messageForFetchingError = "Error fetching photo entity"
+        static let messageForSavingPhotoError = "Error saving favorite photo"
+        static let messageForDeletingPhotoError = "Error deleting favorite photo"
     }
     
-    private func fetchPhotoEntity(with id: String?) -> UnsplashPhotoEntity? {
+    func isPhotoLiked(with id: String) -> Bool {
+        return (try? fetchPhotoEntity(with: id)) != nil
+    }
+    
+    private func fetchPhotoEntity(with id: String?) throws -> UnsplashPhotoEntity? {
         guard let id = id else { return nil }
         
         let fetchRequest: NSFetchRequest<UnsplashPhotoEntity> = UnsplashPhotoEntity.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
+        fetchRequest.predicate = NSPredicate(format: Constants.format, id)
         
         do {
             let result = try (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext.fetch(fetchRequest)
             return result?.first
         } catch {
-            print("Error fetching photo entity: \(error)")
-            return nil
+            throw CoreDataError.fetchError(message: Constants.messageForFetchingError + "\(error)")
         }
     }
     
-    func saveFavoritePhoto(photo: UnsplashPhoto) {
+    func saveFavoritePhoto(photo: UnsplashPhoto) throws {
         let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
-
-        guard let entity = NSEntityDescription.entity(forEntityName: "UnsplashPhotoEntity", in: context!) else { return }
-
+        
+        guard let entity = NSEntityDescription.entity(forEntityName: Constants.entityName, in: context!) else { return }
+        
         let photoEntity = UnsplashPhotoEntity(entity: entity, insertInto: context)
         photoEntity.id = photo.id
         photoEntity.altDescription = photo.altDescription
@@ -36,20 +44,19 @@ final class CoreDataHelper: CoreDataManager {
         do {
             try context?.save()
         } catch {
-            print("Error saving favorite photo: \(error)")
+            throw CoreDataError.saveError(message: Constants.messageForSavingPhotoError + "\(error)")
         }
     }
-
-    func deleteFavoritePhoto(with id: String) {
+    
+    func deleteFavoritePhoto(with id: String) throws {
         let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
-
-        if let photoEntity = fetchPhotoEntity(with: id) {
-            context?.delete(photoEntity)
-            do {
-                try context?.save()
-            } catch {
-                print("Error deleting favorite photo: \(error)")
+        do {
+            if let photoEntity = try fetchPhotoEntity(with: id) {
+                context?.delete(photoEntity)
+                try? context?.save()
             }
+        } catch {
+            throw CoreDataError.saveError(message: Constants.messageForSavingPhotoError + "\(error)")
         }
     }
 }
