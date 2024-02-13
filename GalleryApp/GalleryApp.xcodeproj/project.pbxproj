@@ -99,6 +99,15 @@
 			path = DataBase;
 			sourceTree = "<group>";
 		};
+		F13075252B7B8CD3005C2619 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				F13075212B7B8A26005C2619 /* UnsplashPhotoEntity+CoreDataClass.swift */,
+				F13075232B7B8A2D005C2619 /* UnsplashPhotoEntity+CoreDataProperties.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		F177A21B2B66DF7100FA5BC4 = {
 			isa = PBXGroup;
 			children = (
@@ -182,10 +191,9 @@
 		F177A2482B6A6A0700FA5BC4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F13075212B7B8A26005C2619 /* UnsplashPhotoEntity+CoreDataClass.swift */,
-				F13075232B7B8A2D005C2619 /* UnsplashPhotoEntity+CoreDataProperties.swift */,
 				F177A2492B6A6A1900FA5BC4 /* UnsplashPhoto.swift */,
 				F177A24B2B6A6C9400FA5BC4 /* URLS.swift */,
+				F13075252B7B8CD3005C2619 /* CoreData */,
 			);
 			path = Models;
 			sourceTree = "<group>";
