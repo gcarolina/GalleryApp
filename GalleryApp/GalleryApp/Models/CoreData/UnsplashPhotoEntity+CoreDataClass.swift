@@ -2,6 +2,4 @@ import Foundation
 import CoreData
 
 @objc(UnsplashPhotoEntity)
-public class UnsplashPhotoEntity: NSManagedObject {
-
-}
+public class UnsplashPhotoEntity: NSManagedObject {}
