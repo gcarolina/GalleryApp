@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:UnsplashPhotoEntity+CoreDataClass.swift">
-   </FileRef>
-   <FileRef
-      location = "group:UnsplashPhotoEntity+CoreDataProperties.swift">
-   </FileRef>
-   <FileRef
       location = "group:GalleryApp.xcodeproj">
    </FileRef>
    <FileRef
