@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-final class ImageGalleryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+final class ImageGalleryViewController: UIViewController {
     private enum Constants {
         static let navigationItemTitle = "Eloquence Art Gallery"
         static let imageGalleryCell = "ImageGalleryCell"
@@ -118,7 +118,9 @@ final class ImageGalleryViewController: UIViewController, UICollectionViewDelega
         layout.minimumInteritemSpacing = LayoutConstants.itemSpacing
         layout.minimumLineSpacing = LayoutConstants.itemSpacing
     }
-    
+}
+
+extension ImageGalleryViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         galleryViewModel.photos.count
     }
@@ -132,7 +134,9 @@ final class ImageGalleryViewController: UIViewController, UICollectionViewDelega
         cell.coreDataManager = self.coreDataManager
         return cell
     }
-    
+}
+
+extension ImageGalleryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let imageDetailViewModel = ImageDetailViewModel()
         imageDetailViewModel.photos = self.galleryViewModel.photos
