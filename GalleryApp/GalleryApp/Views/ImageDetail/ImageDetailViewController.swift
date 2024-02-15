@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-final class ImageDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+final class ImageDetailViewController: UIViewController {
     private enum Constants {
         static let imageDetailCell = "ImageDetailCell"
         static let decrement: CGFloat = 1
@@ -120,7 +120,9 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
         layout.minimumInteritemSpacing = LayoutConstants.itemSpacing
         layout.minimumLineSpacing = LayoutConstants.itemSpacing
     }
-    
+}
+
+extension ImageDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         imageDetailViewModel?.photos.count ?? .zero
     }
@@ -134,7 +136,9 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
         cell.coreDataManager = self.coreDataManager
         return cell
     }
-    
+}
+
+extension ImageDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
     }
