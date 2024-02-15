@@ -86,11 +86,11 @@ final class ImageGalleryCell: UICollectionViewCell {
         
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 8
+        imageView.isSkeletonable = true
         self.setupShadow()
     }
     
     private func setUpAnimation() {
-        imageView.isSkeletonable = true
         let gradient = SkeletonGradient(baseColor: Colors.paleGrey)
         let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .topLeftBottomRight,
                                                                         duration: ImageGalleryConstants.duration)
