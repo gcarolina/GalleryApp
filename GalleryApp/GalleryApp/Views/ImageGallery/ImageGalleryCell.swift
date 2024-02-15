@@ -17,7 +17,7 @@ final class ImageGalleryCell: UICollectionViewCell {
         return imageView
     }()
     
-    lazy var favoriteImage: UIImage? = {
+    private lazy var favoriteImage: UIImage? = {
         UIImage(systemName: ImageGalleryConstants.favoriteImageName)
     }()
     

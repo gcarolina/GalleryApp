@@ -34,11 +34,11 @@ final class ImageDetailCell: UICollectionViewCell {
         return indicator
     }()
     
-    lazy var favoriteImage: UIImage? = {
+    private lazy var favoriteImage: UIImage? = {
         UIImage(systemName: ImageDetailConstants.favoriteImageName)
     }()
     
-    lazy var unfavoriteImage: UIImage? = {
+    private lazy var unfavoriteImage: UIImage? = {
         UIImage(systemName: ImageDetailConstants.unfavoriteImage)
     }()
     

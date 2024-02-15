@@ -19,7 +19,7 @@ final class ImageDetailViewController: UIViewController {
     private var collectionViewFlowLayout: UICollectionViewFlowLayout?
     
     private var cancellables: Set<AnyCancellable> = []
-    var imageDetailViewModel: ImageDetailViewModel?
+    private var imageDetailViewModel: ImageDetailViewModel?
     private var coreDataManager: CoreDataManager
 
     init(imageDetailViewModel: ImageDetailViewModel, coreDataManager: CoreDataManager) {
