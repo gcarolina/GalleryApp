@@ -1,6 +1,6 @@
 import UIKit
 import SkeletonView
-import Kingfisher
+import AlamofireImage
 
 final class ImageGalleryCell: UICollectionViewCell {
     private enum ImageGalleryConstants {
@@ -119,9 +119,9 @@ final class ImageGalleryCell: UICollectionViewCell {
     
     private func loadImage(from urlString: String) {
         guard let url = URL(string: urlString) else { return }
-        imageView.kf.setImage(with: url, options: [.cacheOriginalImage]) { _ in
+        imageView.af.setImage(withURL: url, completion: { _ in
             self.animationPlayed = true
             self.hideSkeleton()
-        }
+        })
     }
 }
