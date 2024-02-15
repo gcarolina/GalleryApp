@@ -16,9 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = navigationController
         
         let unsplashNetworkManager = UnsplashNetworkManager()
-        let coreDataHelper = CoreDataHelper()
+        let favoritePhotoCoreDataManager = FavoritePhotoCoreDataManager()
         let imageGalleryViewModel = ImageGalleryViewModel(networkManager: unsplashNetworkManager)
-        let imageGalleryViewController = ImageGalleryViewController(galleryViewModel: imageGalleryViewModel, coreDataManager: coreDataHelper)
+        let imageGalleryViewController = ImageGalleryViewController(galleryViewModel: imageGalleryViewModel, coreDataManager: favoritePhotoCoreDataManager)
         navigationController.setViewControllers([imageGalleryViewController], animated: false)
 
         window?.makeKeyAndVisible()

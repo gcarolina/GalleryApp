@@ -1,14 +1,14 @@
 import UIKit
 import CoreData
 
-final class CoreDataHelper: CoreDataManager {
+final class FavoritePhotoCoreDataManager: CoreDataManager {
     private enum Constants {
         static let format = "id == %@"
         static let entityName = "UnsplashPhotoEntity"
         
-        static let messageForFetchingError = "Error fetching photo entity"
-        static let messageForSavingPhotoError = "Error saving favorite photo"
-        static let messageForDeletingPhotoError = "Error deleting favorite photo"
+        static let fetchingError = "Error fetching photo entity"
+        static let savingPhotoError = "Error saving favorite photo"
+        static let deletingPhotoError = "Error deleting favorite photo"
     }
     
     private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
@@ -24,7 +24,7 @@ final class CoreDataHelper: CoreDataManager {
         do {
             return try context?.fetch(fetchRequest).first
         } catch {
-            throw CoreDataError.fetchError(message: Constants.messageForFetchingError + "\(error)")
+            throw CoreDataError.fetchError(message: Constants.fetchingError + "\(error)")
         }
     }
     
@@ -35,7 +35,7 @@ final class CoreDataHelper: CoreDataManager {
         do {
             try context.save()
         } catch {
-            throw CoreDataError.saveError(message: Constants.messageForSavingPhotoError + "\(error)")
+            throw CoreDataError.saveError(message: Constants.savingPhotoError + "\(error)")
         }
     }
     
@@ -56,7 +56,7 @@ final class CoreDataHelper: CoreDataManager {
                 try? context.save()
             }
         } catch {
-            throw CoreDataError.saveError(message: Constants.messageForSavingPhotoError + "\(error)")
+            throw CoreDataError.saveError(message: Constants.deletingPhotoError + "\(error)")
         }
     }
 }

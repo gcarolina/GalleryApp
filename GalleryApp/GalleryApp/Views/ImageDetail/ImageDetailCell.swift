@@ -65,7 +65,7 @@ final class ImageDetailCell: UICollectionViewCell {
     }
     
     override init(frame: CGRect) {
-        self.coreDataManager = CoreDataHelper()
+        self.coreDataManager = FavoritePhotoCoreDataManager()
         super.init(frame: frame)
         configureUI()
     }
