@@ -10,7 +10,7 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
     
     private enum LayoutConstants {
         static let gradientLayerPosition: UInt32 = 0
-        static let itemSpacing: CGFloat = 10
+        static let itemSpacing: CGFloat = 0
         static let numberOfItemsInCompactRow: CGFloat = 2
         static let numberOfItemsInRegularRow: CGFloat = 1
     }
@@ -48,6 +48,7 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
                 if let initialIndex = self?.imageDetailViewModel?.initialPhotoIndex {
                     self?.collectionView?.scrollToItem(at: IndexPath(item: initialIndex, section: Constants.section),
                                                        at: .centeredHorizontally, animated: false)
+                    self?.collectionView?.isPagingEnabled = true
                 }
             }
             .store(in: &cancellables)
@@ -135,6 +136,6 @@ final class ImageDetailViewController: UIViewController, UICollectionViewDelegat
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: view.frame.height)
+        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
     }
 }
