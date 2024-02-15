@@ -86,15 +86,7 @@ final class ImageGalleryCell: UICollectionViewCell {
         
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 8
-        setupShadow(for: self)
-    }
-    
-    private func setupShadow(for view: UIView) {
-        view.layer.shadowColor = Colors.teal.cgColor
-        view.layer.shadowOffset = CGSize(width: 0, height: 4)
-        view.layer.shadowOpacity = 1
-        view.layer.shadowRadius = 12
-        view.layer.masksToBounds = false
+        self.setupShadow()
     }
     
     private func setUpAnimation() {

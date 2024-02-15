@@ -122,14 +122,6 @@ final class ImageDetailCell: UICollectionViewCell {
         }
     }
     
-    private func setupShadow(for view: UIView) {
-        view.layer.shadowColor = Colors.paleGrey.cgColor
-        view.layer.shadowOffset = CGSize(width: 0, height: 3)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowRadius = 3
-        view.layer.masksToBounds = false
-    }
-    
     private func configureCell() {
         guard let photo = photo else { return }
         likedButton.isSelected = coreDataManager.isPhotoLiked(with: photo.id)
@@ -144,7 +136,7 @@ final class ImageDetailCell: UICollectionViewCell {
             case .success:
                 self.imageView.layer.cornerRadius = 10
                 self.imageView.layer.masksToBounds = true
-                self.setupShadow(for: self)
+                self.setupShadow()
             case .failure:
                 break
             }

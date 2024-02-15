@@ -12,6 +12,7 @@
 		F103A4972B78D76F0042B925 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F103A4962B78D76F0042B925 /* CoreDataManager.swift */; };
 		F103A4992B79013D0042B925 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F103A4982B79013D0042B925 /* CoreDataError.swift */; };
 		F12BAB132B77D0BB004F4C45 /* GalleryApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F12BAB112B77D0BB004F4C45 /* GalleryApp.xcdatamodeld */; };
+		F12F44262B7E0E59009E6545 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12F44252B7E0E59009E6545 /* UIViewExtension.swift */; };
 		F13075282B7B8DEA005C2619 /* UnsplashPhotoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13075272B7B8DEA005C2619 /* UnsplashPhotoEntity+CoreDataClass.swift */; };
 		F13075292B7B8DEA005C2619 /* UnsplashPhotoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13075262B7B8DE9005C2619 /* UnsplashPhotoEntity+CoreDataProperties.swift */; };
 		F177A2282B66DF7100FA5BC4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A2272B66DF7100FA5BC4 /* AppDelegate.swift */; };
@@ -40,6 +41,7 @@
 		F103A4962B78D76F0042B925 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F103A4982B79013D0042B925 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
 		F12BAB122B77D0BB004F4C45 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		F12F44252B7E0E59009E6545 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		F13075262B7B8DE9005C2619 /* UnsplashPhotoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UnsplashPhotoEntity+CoreDataProperties.swift"; path = "/Users/carol/Documents/GalleryApp/GalleryApp/GalleryApp/Models/UnsplashPhotoEntity+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		F13075272B7B8DEA005C2619 /* UnsplashPhotoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UnsplashPhotoEntity+CoreDataClass.swift"; path = "/Users/carol/Documents/GalleryApp/GalleryApp/GalleryApp/Models/UnsplashPhotoEntity+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		F177A2242B66DF7100FA5BC4 /* GalleryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GalleryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				F177A2442B69388300FA5BC4 /* CAGradientLayerExtension.swift */,
+				F12F44252B7E0E59009E6545 /* UIViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F12F44262B7E0E59009E6545 /* UIViewExtension.swift in Sources */,
 				F177A24F2B6A6D4200FA5BC4 /* UnsplashNetworkManager.swift in Sources */,
 				F177A2882B723A4900FA5BC4 /* ImageDetailViewModel.swift in Sources */,
 				F103A4972B78D76F0042B925 /* CoreDataManager.swift in Sources */,
