@@ -132,8 +132,10 @@ extension ImageDetailViewController: UICollectionViewDataSource {
                                                             for: indexPath) as? ImageDetailCell else {
             fatalError("The registered type for the cell does not match the casting")
         }
-        cell.photo = imageDetailViewModel?.photos[indexPath.item]
-        cell.coreDataManager = self.coreDataManager
+        
+        let cellViewModel = ImageDetailCellViewModel(coreDataManager: coreDataManager)
+        cellViewModel.photo = imageDetailViewModel?.photos[indexPath.item]
+        cell.viewModel = cellViewModel
         return cell
     }
 }

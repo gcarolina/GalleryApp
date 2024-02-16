@@ -1,5 +1,4 @@
 import UIKit
-import AlamofireImage
 
 final class ImageDetailCell: UICollectionViewCell {
     private enum ImageDetailConstants {
@@ -50,22 +49,13 @@ final class ImageDetailCell: UICollectionViewCell {
         return button
     }()
     
-    var photo: UnsplashPhoto? {
+    var viewModel: ImageDetailCellViewModel? {
         didSet {
             configureCell()
         }
     }
     
-    var coreDataManager: CoreDataManager
-    
-    init(coreDataManager: CoreDataManager) {
-        self.coreDataManager = coreDataManager
-        super.init(frame: .zero)
-        configureUI()
-    }
-    
     override init(frame: CGRect) {
-        self.coreDataManager = FavoritePhotoCoreDataManager()
         super.init(frame: frame)
         configureUI()
     }
@@ -113,35 +103,27 @@ final class ImageDetailCell: UICollectionViewCell {
         likedButton.isSelected = !likedButton.isSelected
         likedButton.setBackgroundImage(likedButton.isSelected ? favoriteImage : unfavoriteImage, for: .normal)
         
-        if let photo = photo {
-            if likedButton.isSelected {
-                try? coreDataManager.saveFavoritePhoto(photo: photo)
-            } else {
-                try? coreDataManager.deleteFavoritePhoto(with: photo.id)
-            }
+        guard let viewModel = viewModel else { return }
+        if likedButton.isSelected {
+            viewModel.savePhotoToFavorites()
+        } else {
+            viewModel.deletePhotoFromFavorites()
         }
     }
     
     private func configureCell() {
-        guard let photo = photo else { return }
-        likedButton.isSelected = coreDataManager.isPhotoLiked(with: photo.id)
+        guard let viewModel = viewModel else { return }
+        likedButton.isSelected = viewModel.isPhotoLiked()
         likedButton.setBackgroundImage(likedButton.isSelected ? favoriteImage : unfavoriteImage, for: .normal)
         
-        guard let imageURL = URL(string: photo.urls.regular) else { return }
         activityIndicator.startAnimating()
-        
-        imageView.af.setImage(withURL: imageURL, completion: { response in
-            self.activityIndicator.stopAnimating()
-            switch response.result {
-            case .success:
-                self.imageView.layer.cornerRadius = 10
-                self.imageView.layer.masksToBounds = true
-                self.setupShadow()
-            case .failure:
-                break
-            }
-        })
-        
-        label.text = photo.altDescription
+        viewModel.loadImage { [weak self] image in
+            self?.activityIndicator.stopAnimating()
+            self?.imageView.image = image
+            self?.imageView.layer.cornerRadius = 10
+            self?.imageView.layer.masksToBounds = true
+            self?.setupShadow()
+        }
+        label.text = viewModel.photo?.altDescription
     }
 }

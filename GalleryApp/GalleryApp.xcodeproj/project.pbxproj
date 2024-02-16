@@ -12,6 +12,7 @@
 		F103A4972B78D76F0042B925 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F103A4962B78D76F0042B925 /* CoreDataManager.swift */; };
 		F103A4992B79013D0042B925 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F103A4982B79013D0042B925 /* CoreDataError.swift */; };
 		F10919E42B7F47610076A89A /* ImageGalleryCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10919E32B7F47610076A89A /* ImageGalleryCellViewModel.swift */; };
+		F10919E62B7F55FA0076A89A /* ImageDetailCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10919E52B7F55FA0076A89A /* ImageDetailCellViewModel.swift */; };
 		F12BAB132B77D0BB004F4C45 /* GalleryApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F12BAB112B77D0BB004F4C45 /* GalleryApp.xcdatamodeld */; };
 		F12F44262B7E0E59009E6545 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12F44252B7E0E59009E6545 /* UIViewExtension.swift */; };
 		F13075282B7B8DEA005C2619 /* UnsplashPhotoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13075272B7B8DEA005C2619 /* UnsplashPhotoEntity+CoreDataClass.swift */; };
@@ -42,6 +43,7 @@
 		F103A4962B78D76F0042B925 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F103A4982B79013D0042B925 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
 		F10919E32B7F47610076A89A /* ImageGalleryCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryCellViewModel.swift; sourceTree = "<group>"; };
+		F10919E52B7F55FA0076A89A /* ImageDetailCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailCellViewModel.swift; sourceTree = "<group>"; };
 		F12BAB122B77D0BB004F4C45 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		F12F44252B7E0E59009E6545 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		F13075262B7B8DE9005C2619 /* UnsplashPhotoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UnsplashPhotoEntity+CoreDataProperties.swift"; path = "/Users/carol/Documents/GalleryApp/GalleryApp/GalleryApp/Models/UnsplashPhotoEntity+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
@@ -218,6 +220,7 @@
 				F177A27C2B70E27F00FA5BC4 /* ImageGalleryViewModel.swift */,
 				F10919E32B7F47610076A89A /* ImageGalleryCellViewModel.swift */,
 				F177A2872B723A4900FA5BC4 /* ImageDetailViewModel.swift */,
+				F10919E52B7F55FA0076A89A /* ImageDetailCellViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				F177A23E2B69201E00FA5BC4 /* Colors.swift in Sources */,
 				F177A2862B7234B900FA5BC4 /* ImageDetailCell.swift in Sources */,
 				F13075292B7B8DEA005C2619 /* UnsplashPhotoEntity+CoreDataProperties.swift in Sources */,
+				F10919E62B7F55FA0076A89A /* ImageDetailCellViewModel.swift in Sources */,
 				F177A24C2B6A6C9400FA5BC4 /* URLS.swift in Sources */,
 				F177A2452B69388300FA5BC4 /* CAGradientLayerExtension.swift in Sources */,
 				F177A2842B72342400FA5BC4 /* ImageDetailViewController.swift in Sources */,
