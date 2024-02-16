@@ -3,7 +3,7 @@ import Combine
 
 final class ImageDetailViewController: UIViewController {
     private enum Constants {
-        static let imageDetailCell = "ImageDetailCell"
+        static let imageDetailCell = String(describing: ImageDetailCell.self)
         static let decrement: CGFloat = 1
         static let section = 0
     }

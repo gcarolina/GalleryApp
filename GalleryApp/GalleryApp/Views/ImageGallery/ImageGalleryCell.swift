@@ -1,6 +1,5 @@
 import UIKit
 import SkeletonView
-import AlamofireImage
 
 final class ImageGalleryCell: UICollectionViewCell {
     private enum ImageGalleryConstants {
@@ -30,22 +29,13 @@ final class ImageGalleryCell: UICollectionViewCell {
         return button
     }()
     
-    var photo: UnsplashPhoto? {
+    var viewModel: ImageGalleryCellViewModel? {
         didSet {
             configureCell()
         }
     }
     
-    var coreDataManager: CoreDataManager
-    
-    init(coreDataManager: CoreDataManager) {
-        self.coreDataManager = coreDataManager
-        super.init(frame: .zero)
-        configureUI()
-    }
-    
     override init(frame: CGRect) {
-        self.coreDataManager = FavoritePhotoCoreDataManager()
         super.init(frame: frame)
         configureUI()
     }
@@ -104,16 +94,12 @@ final class ImageGalleryCell: UICollectionViewCell {
     }
     
     private func configureCell() {
-        guard let photo = photo else { return }
-        loadImage(from: photo.urls.thumb)
-        likedButton.setBackgroundImage(coreDataManager.isPhotoLiked(with: photo.id) ? favoriteImage : nil, for: .normal)
-    }
-    
-    private func loadImage(from urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        imageView.af.setImage(withURL: url, completion: { _ in
-            self.animationPlayed = true
-            self.hideSkeleton()
-        })
+        guard let viewModel = viewModel else { return }
+        viewModel.loadImage { [weak self] image in
+            self?.imageView.image = image
+            self?.animationPlayed = true
+            self?.hideSkeleton()
+        }
+        likedButton.setBackgroundImage(viewModel.isPhotoLiked() ? favoriteImage : nil, for: .normal)
     }
 }

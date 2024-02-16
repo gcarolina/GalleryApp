@@ -4,7 +4,7 @@ import Combine
 final class ImageGalleryViewController: UIViewController {
     private enum Constants {
         static let navigationItemTitle = "Eloquence Art Gallery"
-        static let imageGalleryCell = "ImageGalleryCell"
+        static let imageGalleryCell = String(describing: ImageGalleryCell.self)
         static let decrement = 1
     }
     
@@ -130,8 +130,10 @@ extension ImageGalleryViewController: UICollectionViewDataSource {
                                                             for: indexPath) as? ImageGalleryCell else {
             fatalError("The registered type for the cell does not match the casting")
         }
-        cell.photo = galleryViewModel.photos[indexPath.item]
-        cell.coreDataManager = self.coreDataManager
+        
+        let cellViewModel = ImageGalleryCellViewModel(coreDataManager: coreDataManager)
+        cellViewModel.photo = galleryViewModel.photos[indexPath.item]
+        cell.viewModel = cellViewModel
         return cell
     }
 }
