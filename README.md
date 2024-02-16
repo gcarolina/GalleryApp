@@ -6,7 +6,7 @@ This iOS application is an image gallery app showcasing proficiency in iOS devel
 ## Frameworks and Pods:
 - Utilizes the Unsplash API for fetching images.
 - Utilizes URLSession for network requests.
-- Integrates AlamofireImage and Kingfisher for efficient response and image caching.
+- Integrates AlamofireImage for efficient response and image caching.
 - Uses native CoreData for local database management, ensuring seamless data persistence.
 - Implements SwiftLint for code style enforcement.
 - Integrates Skeleton View for smooth loading animations, enhancing user experience.
