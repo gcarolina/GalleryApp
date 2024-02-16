@@ -33,6 +33,7 @@
 		F177A2842B72342400FA5BC4 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A2832B72342400FA5BC4 /* ImageDetailViewController.swift */; };
 		F177A2862B7234B900FA5BC4 /* ImageDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A2852B7234B900FA5BC4 /* ImageDetailCell.swift */; };
 		F177A2882B723A4900FA5BC4 /* ImageDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F177A2872B723A4900FA5BC4 /* ImageDetailViewModel.swift */; };
+		F1B2B7CB2B7F6104001F5EB4 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B2B7CA2B7F6104001F5EB4 /* NetworkError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		F177A2832B72342400FA5BC4 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 		F177A2852B7234B900FA5BC4 /* ImageDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailCell.swift; sourceTree = "<group>"; };
 		F177A2872B723A4900FA5BC4 /* ImageDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewModel.swift; sourceTree = "<group>"; };
+		F1B2B7CA2B7F6104001F5EB4 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 				F177A23D2B69201E00FA5BC4 /* Colors.swift */,
 				F177A2412B6937FC00FA5BC4 /* CustomGradientStyle.swift */,
 				F103A4982B79013D0042B925 /* CoreDataError.swift */,
+				F1B2B7CA2B7F6104001F5EB4 /* NetworkError.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				F177A22C2B66DF7100FA5BC4 /* ImageGalleryViewController.swift in Sources */,
 				F177A2752B70260300FA5BC4 /* NetworkManager.swift in Sources */,
 				F103A4992B79013D0042B925 /* CoreDataError.swift in Sources */,
+				F1B2B7CB2B7F6104001F5EB4 /* NetworkError.swift in Sources */,
 				F103A4952B77E94B0042B925 /* FavoritePhotoCoreDataManager.swift in Sources */,
 				F177A2472B698ED800FA5BC4 /* ImageGalleryCell.swift in Sources */,
 				F177A23E2B69201E00FA5BC4 /* Colors.swift in Sources */,

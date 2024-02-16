@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 private enum NetworkSettings {
     enum APIKey: String {
@@ -17,33 +18,33 @@ private enum NetworkSettings {
 
 final class UnsplashNetworkManager: NetworkManager {
     private enum Constants {
-        static let jsonDecodingFailureMessage = NSLocalizedString("Failed to decode JSON: %@", comment: "")
-        static let urlCreationFailureMessage = NSLocalizedString("Failed to create URL", comment: "")
-        static let domain = "NetworkManager"
+        static let urlCreationFailureMessage = NSLocalizedString("Failed to create URL for API request", comment: "")
+        static let requestFailureMessage = NSLocalizedString("Failed to make the request", comment: "")
+        static let jsonDecodingFailureMessage: StaticString = "Failed to decode JSON: %@"
         static let photosPerPage = 30
     }
     
     private var page = 1
     
-    func getPhotos(completion: @escaping ([UnsplashPhoto]?) -> Void) {
-        makeRequest { [weak self] data, error in
+    func getPhotos(completion: @escaping (Result<[UnsplashPhoto], NetworkError>) -> Void) {
+        makeRequest { [weak self] result in
             guard let self = self else { return }
-            guard let data = data, error == nil else {
-                completion(nil)
-                return
-            }
-            self.decodeUnsplashPhotos(from: data) { results in
-                completion(results)
-                self.page += 1
+            
+            switch result {
+            case .success(let data):
+                self.decodeUnsplashPhotos(from: data) { results in
+                    completion(.success(results))
+                    self.page += 1
+                }
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
     
-    private func makeRequest(completion: @escaping (Data?, Error?) -> Void) {
+    private func makeRequest(completion: @escaping (Result<Data, NetworkError>) -> Void) {
         guard let url = createURLForAPIRequest(page: page, photosPerPage: Constants.photosPerPage) else {
-            completion(nil, NSError(domain: Constants.domain,
-                                    code: 400,
-                                    userInfo: [NSLocalizedDescriptionKey: Constants.urlCreationFailureMessage]))
+            completion(.failure(.urlCreationFailure(description: Constants.urlCreationFailureMessage)))
             return
         }
         var request = URLRequest(url: url)
@@ -53,9 +54,9 @@ final class UnsplashNetworkManager: NetworkManager {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
-                    completion(data, nil)
+                    completion(.success(data))
                 case .failure(let error):
-                    completion(nil, error)
+                    completion(.failure(.requestFailed(description: Constants.requestFailureMessage + "\(error)")))
                 }
             }
         }
@@ -87,14 +88,13 @@ final class UnsplashNetworkManager: NetworkManager {
         }
     }
     
-    private func decodeUnsplashPhotos(from data: Data, completion: @escaping ([UnsplashPhoto]?) -> Void) {
+    private func decodeUnsplashPhotos(from data: Data, completion: @escaping ([UnsplashPhoto]) -> Void) {
         do {
             let decoder = JSONDecoder()
             let results = try decoder.decode([UnsplashPhoto].self, from: data)
             completion(results)
         } catch {
-            print(String(format: Constants.jsonDecodingFailureMessage, error.localizedDescription))
-            completion(nil)
+            os_log(Constants.jsonDecodingFailureMessage, log: OSLog.default, type: .error, error.localizedDescription)
         }
     }
 }

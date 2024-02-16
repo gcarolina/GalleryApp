@@ -2,6 +2,10 @@ import Foundation
 import Combine
 
 final class ImageGalleryViewModel: ObservableObject {
+    private enum Constants {
+        static let fetchingError = "Error fetching photos"
+    }
+    
     @Published var photos: [UnsplashPhoto] = []
     
     private let networkManager: NetworkManager
@@ -10,10 +14,14 @@ final class ImageGalleryViewModel: ObservableObject {
     }
     
     func fetchPhotos() {
-        networkManager.getPhotos { [weak self] fetchedPhotos in
+        networkManager.getPhotos { [weak self] result in
             guard let self = self else { return }
-            guard let fetchedPhotos = fetchedPhotos else { return }
-            self.photos.append(contentsOf: fetchedPhotos)
+            switch result {
+            case .success(let fetchedPhotos):
+                self.photos.append(contentsOf: fetchedPhotos)
+            case .failure(let error):
+                print(Constants.fetchingError + "\(error)")
+            }
         }
     }
 }
